@@ -1,0 +1,30 @@
+﻿{
+  "components": [
+    {
+      "type": "AsciiForge.Components.Transform",
+      "properties": [
+        [ "isEnabled", true ],
+        [ "position", { "x": 0, "y": 0, "z": 0 } ],
+        [ "rotation", { "x": 0, "y": 0, "z": 0 } ],
+        [ "scale", { "x": 1, "y": 1, "z": 1 } ]
+      ]
+    },
+    {
+      "type": "AsciiForge.Components.Colliders.BoxCollider",
+      "properties": [
+        [ "isEnabled", true ],
+        [ "size", { "x": 2, "y": 2 } ],
+        [ "offset", { "x": 0, "y": 0 } ]
+      ]
+    },
+    {
+      "type": "AsciiForge.Components.Sprites.Box",
+      "properties": [
+        [ "isEnabled", true ],
+        [ "boxWidth", 2 ],
+        [ "boxHeight", 2 ],
+        [ "anchor", "TopLeft" ]
+      ]
+    }
+  ]
+}

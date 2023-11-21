@@ -1,0 +1,75 @@
+﻿{
+  "instances": [
+    {
+      "species": "entSolid",
+      "components": [
+        {
+          "type": "AsciiForge.Components.Transform",
+          "properties": [
+            [ "isEnabled", true ],
+            [ "position", { "x": 60, "y": 30, "z": 0 } ],
+            [ "rotation", { "x": 0, "y": 0, "z": 0 } ],
+            [ "scale", { "x": 1, "y": 1, "z": 1 } ]
+          ]
+        },
+        {
+          "type": "AsciiForge.Components.Colliders.BoxCollider",
+          "properties": [
+            [ "isEnabled", true ],
+            [ "size", { "x": 120, "y": 5 } ],
+            [ "offset", { "x": 0, "y": 0 } ]
+          ]
+        },
+        {
+          "type": "AsciiForge.Components.Sprites.Box",
+          "properties": [
+            [ "isEnabled", true ],
+            [ "boxWidth", 120 ],
+            [ "boxHeight", 5 ],
+            [ "anchor", "MiddleCenter" ]
+          ]
+        }
+      ]
+    },
+    {
+      "species": "entSolid",
+      "components": [
+        {
+          "type": "AsciiForge.Components.Transform",
+          "properties": [
+            [ "isEnabled", true ],
+            [ "position", { "x": 60, "y": 26, "z": 0 } ]
+          ]
+        },
+        {
+          "type": "AsciiForge.Components.Colliders.BoxCollider",
+          "properties": [
+            [ "isEnabled", true ],
+            [ "size", { "x": 8, "y": 3 } ]
+          ]
+        },
+        {
+          "type": "AsciiForge.Components.Sprites.Box",
+          "properties": [
+            [ "isEnabled", true ],
+            [ "boxWidth", 8 ],
+            [ "boxHeight", 3 ],
+            [ "anchor", "MiddleCenter" ]
+          ]
+        }
+      ]
+    },
+    {
+      "species": "entPlayer",
+      "components": [
+        {
+          "type": "AsciiForge.Components.Transform",
+          "properties": [
+            [ "isEnabled", true ],
+            [ "position", { "x": 60, "y": 0, "z": 0 } ]
+          ]
+        }
+      ]
+    }
+  ]
+}

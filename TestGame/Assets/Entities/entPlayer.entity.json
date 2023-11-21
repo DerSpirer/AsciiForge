@@ -1,0 +1,43 @@
+﻿{
+  "components": [
+    {
+      "type": "AsciiForge.Components.Transform",
+      "properties": [
+        [ "isEnabled", true ],
+        [ "position", { "x": 0, "y": 0, "z": 0 } ],
+        [ "rotation", { "x": 0, "y": 0, "z": 0 } ],
+        [ "scale", { "x": 1, "y": 1, "z": 1 } ]
+      ]
+    },
+    {
+      "type": "ConsoleGame.Components.Player",
+      "properties": [
+        [ "isEnabled", true ]
+      ]
+    },
+    {
+      "type": "AsciiForge.Components.Colliders.BoxCollider",
+      "properties": [
+        [ "isEnabled", true],
+        [ "size", { "x": 3, "y": 3 } ],
+        [ "offset", { "x": 0, "y": 0 } ]
+      ]
+    },
+    {
+      "type": "AsciiForge.Components.Sprites.Sprite",
+      "properties": [
+        [ "isEnabled", true ],
+        [ "sprite", "sprPlayerIdle" ],
+        [ "anchor", "MiddleCenter" ]
+      ]
+    },
+    {
+      "type": "AsciiForge.Components.Sprites.Animator",
+      "properties": [
+        [ "isEnabled", true ],
+        [ "sprites", [ "sprPlayerIdle", "sprPlayerWalk", "sprPlayerRun" ] ],
+        [ "currSprite", 0 ]
+      ]
+    }
+  ]
+}

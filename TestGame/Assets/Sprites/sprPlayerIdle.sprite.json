@@ -1,0 +1,24 @@
+﻿{
+  "isPlaying": false,
+  "clipLength": 1.0,
+  "startFrame": 0,
+  "textures": [
+    {
+      "text": [
+        [ " ", "O", " " ],
+        [ "/", "|", "\\" ],
+        [ "/", " ", "\\" ]
+      ],
+      "foregroundColors": [
+        [ 15, 15, 15 ],
+        [ 15, 15, 15 ],
+        [ 15, 15, 15 ]
+      ],
+      "backgroundColors": [
+        [ 0, 0, 0 ],
+        [ 0, 0, 0 ],
+        [ 0, 0, 0 ]
+      ]
+    }
+  ]
+}
