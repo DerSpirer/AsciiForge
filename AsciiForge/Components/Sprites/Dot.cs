@@ -7,7 +7,7 @@ namespace AsciiForge.Components.Sprites
     {
         private void Start()
         {
-            texture = new TextureResource(new char[,] { { 'o' } }, new Color[,] { { Color.White } }, new Color[,] { { Color.Black } });
+            texture = new TextureResource(new char?[,] { { 'o' } }, new Color[,] { { Color.White } }, new Color[,] { { Color.Black } });
         }
     }
 }

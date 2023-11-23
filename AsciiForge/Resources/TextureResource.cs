@@ -5,8 +5,8 @@ namespace AsciiForge.Resources
 {
     public class TextureResource : Resource
     {
-        private readonly char[,] _text;
-        public char[,] text { get { return _text; } }
+        private readonly char?[,] _text;
+        public char?[,] text { get { return _text; } }
         private readonly Color[,] _fg;
         public Color[,] fg { get { return _fg; } }
         private readonly Color[,] _bg;
@@ -75,7 +75,7 @@ namespace AsciiForge.Resources
         }
 
         [JsonConstructor]
-        public TextureResource(char[,] text, Color[,] fg, Color[,] bg)
+        public TextureResource(char?[,] text, Color[,] fg, Color[,] bg)
         {
             _text = text;
             _fg = fg;
@@ -88,7 +88,7 @@ namespace AsciiForge.Resources
             }
         }
         public TextureResource(TextureResource texture)
-            : this((char[,])texture._text.Clone(),
+            : this((char?[,])texture._text.Clone(),
                   (Color[,])texture._fg.Clone(),
                   (Color[,])texture._bg.Clone())
         {

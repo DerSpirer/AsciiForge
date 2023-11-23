@@ -46,7 +46,7 @@ namespace AsciiForge.Components.Sprites
         }
         private void CreateBox()
         {
-            char[,] text = new char[boxHeight,boxWidth];
+            char?[,] text = new char?[boxHeight,boxWidth];
             Color[,] fg = new Color[boxHeight,boxWidth];
             Color[,] bg = new Color[boxHeight,boxWidth];
             for (int i = 0; i < boxHeight; i++)

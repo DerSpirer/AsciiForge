@@ -86,7 +86,7 @@ namespace AsciiForge.Engine
                 }
             }
         }
-        public void Draw(char? chr, Color? fg, Color? bg, float x, float y)
+        public void Draw(char? chr, Color fg, Color bg, float x, float y, BlendMode blendMode = BlendMode.Alpha)
         {
             if (x < 0 || x >= _width || y < 0 || y >= _height)
             {
@@ -99,31 +99,59 @@ namespace AsciiForge.Engine
             {
                 _text[yy, xx] = (char)chr;
             }
-            if (fg != null)
-            {
-                _fg[yy, xx] = (Color)fg;
-            }
-            if (bg != null)
-            {
-                _bg[yy, xx] = (Color)bg;
-            }
+            _fg[yy, xx] = BlendColors(fg, _fg[yy, xx], blendMode);
+            _bg[yy, xx] = BlendColors(bg, _bg[yy, xx], blendMode);
         }
-        public void Draw(string text, Color?[] fg, Color?[] bg, float x, float y)
+        public void Draw(string text, Color[] fg, Color[] bg, float x, float y, BlendMode blendMode = BlendMode.Alpha)
         {
             for (int i = 0; i < text.Length; i++)
             {
-                Draw(text[i], fg[i], bg[i], x + i, y);
+                Draw(text[i], fg[i], bg[i], x + i, y, blendMode);
             }
         }
-        public void Draw(TextureResource texture, float x, float y)
+        public void Draw(TextureResource texture, float x, float y, BlendMode blendMode = BlendMode.Alpha)
         {
             for (int i = 0; i < texture.height; i++)
             {
                 for (int j = 0; j < texture.width; j++)
                 {
-                    Draw(texture.text[i, j], texture.fg[i, j], texture.bg[i, j], x + j, y + i);
+                    Draw(texture.text[i, j], texture.fg[i, j], texture.bg[i, j], x + j, y + i, blendMode);
                 }
             }
+        }
+
+        private Color BlendColors(Color src, Color dst, BlendMode blendMode)
+        {
+            int resultAlpha = dst.A;
+            int resultRed = dst.R;
+            int resultGreen = dst.G;
+            int resultBlue = dst.B;
+
+            switch (blendMode)
+            {
+                case BlendMode.Alpha:
+                    float srcAlpha = src.A / 255.0f;
+                    float dstAlpha = dst.A / 255.0f;
+                    
+                    resultAlpha = (byte)Math.Round((srcAlpha + dstAlpha * (1 - srcAlpha)) * 255.0f);
+                    resultRed = (byte)Math.Round((src.R * srcAlpha + dst.R * (1 - srcAlpha)));
+                    resultGreen = (byte)Math.Round((src.G * srcAlpha + dst.G * (1 - srcAlpha)));
+                    resultBlue = (byte)Math.Round((src.B * srcAlpha + dst.B * (1 - srcAlpha)));
+                    break;
+                case BlendMode.Additive:
+                    resultAlpha = Math.Min(src.A + dst.A, 255);
+                    resultRed = Math.Min(src.R + dst.R, 255);
+                    resultGreen = Math.Min(src.G + dst.G, 255);
+                    resultBlue = Math.Min(src.B + dst.B, 255);
+                    break;
+            }
+
+            return Color.FromArgb(resultAlpha, resultRed, resultGreen, resultBlue);
+        }
+        public enum BlendMode
+        {
+            Alpha,
+            Additive,
         }
     }
 }

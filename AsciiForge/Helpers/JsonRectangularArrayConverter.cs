@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace AsciiForge.Helpers
 {
-    internal class JsonRectangularArrayConverter<T> : JsonConverter<T[,]> where T : struct
+    internal class JsonRectangularArrayConverter<T> : JsonConverter<T[,]>
     {
         public override T[,]? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
@@ -35,7 +35,15 @@ namespace AsciiForge.Helpers
                 writer.WriteStartArray();
                 for (int j = 0; j < value.GetLength(1); j++)
                 {
-                    writer.WriteRawValue(value[i, j].ToString() ?? string.Empty);
+                    if (value[i, j] == null)
+                    {
+                        writer.WriteNullValue();
+                    }
+                    else
+                    {
+                        string valueJson = JsonSerializer.Serialize(value[i, j], options);
+                        writer.WriteRawValue(valueJson);
+                    }
                 }
                 writer.WriteEndArray();
             }
