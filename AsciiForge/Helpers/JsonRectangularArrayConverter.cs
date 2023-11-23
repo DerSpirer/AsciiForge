@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace AsciiForge.Helpers
 {
-    public class JsonRectangularArrayConverter<T> : JsonConverter<T[,]> where T : struct
+    internal class JsonRectangularArrayConverter<T> : JsonConverter<T[,]> where T : struct
     {
         public override T[,]? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

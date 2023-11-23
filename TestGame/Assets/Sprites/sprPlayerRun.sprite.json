@@ -9,15 +9,15 @@
         [ ",", "/", "," ],
         [ " ", "|", ">" ]
       ],
-      "foregroundColors": [
-        [ 15, 15, 15 ],
-        [ 15, 15, 8 ],
-        [ 15, 15, 8 ]
+      "fg": [
+        [ "White", "White", "White" ],
+        [ "White", "White", "DarkGray" ],
+        [ "White", "White", "DarkGray" ]
       ],
-      "backgroundColors": [
-        [ 0, 0, 0 ],
-        [ 0, 0, 0 ],
-        [ 0, 0, 0 ]
+      "bg": [
+        [ "Black", "Black", "Black" ],
+        [ "Black", "Black", "Black" ],
+        [ "Black", "Black", "Black" ]
       ]
     },
     {
@@ -26,15 +26,15 @@
         [ "/", "/", "\\" ],
         [ " ", ">", "\\" ]
       ],
-      "foregroundColors": [
-        [ 15, 15, 15 ],
-        [ 15, 15, 8 ],
-        [ 15, 8, 15 ]
+      "fg": [
+        [ "White", "White", "White" ],
+        [ "White", "White", "DarkGray" ],
+        [ "White", "DarkGray", "White" ]
       ],
-      "backgroundColors": [
-        [ 0, 0, 0 ],
-        [ 0, 0, 0 ],
-        [ 0, 0, 0 ]
+      "bg": [
+        [ "Black", "Black", "Black" ],
+        [ "Black", "Black", "Black" ],
+        [ "Black", "Black", "Black" ]
       ]
     },
     {
@@ -43,15 +43,15 @@
         [ "<", "/", "V" ],
         [ "/", " ", "\\" ]
       ],
-      "foregroundColors": [
-        [ 15, 15, 15 ],
-        [ 15, 15, 8 ],
-        [ 8, 15, 15 ]
+      "fg": [
+        [ "White", "White", "White" ],
+        [ "White", "White", "DarkGray" ],
+        [ "DarkGray", "White", "White" ]
       ],
-      "backgroundColors": [
-        [ 0, 0, 0 ],
-        [ 0, 0, 0 ],
-        [ 0, 0, 0 ]
+      "bg": [
+        [ "Black", "Black", "Black" ],
+        [ "Black", "Black", "Black" ],
+        [ "Black", "Black", "Black" ]
       ]
     },
     {
@@ -60,15 +60,15 @@
         [ ",", "/", "," ],
         [ " ", "|", ">" ]
       ],
-      "foregroundColors": [
-        [ 15, 15, 15 ],
-        [ 8, 15, 15 ],
-        [ 15, 8, 15 ]
+      "fg": [
+        [ "White", "White", "White" ],
+        [ "DarkGray", "White", "White" ],
+        [ "White", "DarkGray", "White" ]
       ],
-      "backgroundColors": [
-        [ 0, 0, 0 ],
-        [ 0, 0, 0 ],
-        [ 0, 0, 0 ]
+      "bg": [
+        [ "Black", "Black", "Black" ],
+        [ "Black", "Black", "Black" ],
+        [ "Black", "Black", "Black" ]
       ]
     },
     {
@@ -77,15 +77,15 @@
         [ "/", "/", "\\" ],
         [ " ", ">", "\\" ]
       ],
-      "foregroundColors": [
-        [ 15, 15, 15 ],
-        [ 8, 15, 15 ],
-        [ 15, 15, 8 ]
+      "fg": [
+        [ "White", "White", "White" ],
+        [ "DarkGray", "White", "White" ],
+        [ "White", "White", "DarkGray" ]
       ],
-      "backgroundColors": [
-        [ 0, 0, 0 ],
-        [ 0, 0, 0 ],
-        [ 0, 0, 0 ]
+      "bg": [
+        [ "Black", "Black", "Black" ],
+        [ "Black", "Black", "Black" ],
+        [ "Black", "Black", "Black" ]
       ]
     },
     {
@@ -94,15 +94,15 @@
         [ "<", "/", "V" ],
         [ "/", " ", "\\" ]
       ],
-      "foregroundColors": [
-        [ 15, 15, 15 ],
-        [ 8, 15, 15 ],
-        [ 15, 15, 8 ]
+      "fg": [
+        [ "White", "White", "White" ],
+        [ "DarkGray", "White", "White" ],
+        [ "White", "White", "DarkGray" ]
       ],
-      "backgroundColors": [
-        [ 0, 0, 0 ],
-        [ 0, 0, 0 ],
-        [ 0, 0, 0 ]
+      "bg": [
+        [ "Black", "Black", "Black" ],
+        [ "Black", "Black", "Black" ],
+        [ "Black", "Black", "Black" ]
       ]
     }
   ]

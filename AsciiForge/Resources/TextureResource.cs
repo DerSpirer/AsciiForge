@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Drawing;
+using System.Text.Json.Serialization;
 
 namespace AsciiForge.Resources
 {
@@ -6,10 +7,10 @@ namespace AsciiForge.Resources
     {
         private readonly char[,] _text;
         public char[,] text { get { return _text; } }
-        private readonly ConsoleColor[,] _foregroundColors;
-        public ConsoleColor[,] foregroundColors { get { return _foregroundColors; } }
-        private readonly ConsoleColor[,] _backgroundColors;
-        public ConsoleColor[,] backgroundColors { get { return _backgroundColors; } }
+        private readonly Color[,] _fg;
+        public Color[,] fg { get { return _fg; } }
+        private readonly Color[,] _bg;
+        public Color[,] bg { get { return _bg; } }
         [JsonIgnore]
         public int width { get { return text.GetLength(1); } }
         [JsonIgnore]
@@ -25,8 +26,8 @@ namespace AsciiForge.Resources
                     for (int j = 0; j < flipped.width / 2; j++)
                     {
                         (flipped._text[i, j], flipped._text[i, flipped.height - 1 - j]) = (flipped._text[i, flipped.height - 1 - j], flipped._text[i, j]);
-                        (flipped._foregroundColors[i, j], flipped._foregroundColors[i, flipped.height - 1 - j]) = (flipped._foregroundColors[i, flipped.height - 1 - j], flipped._foregroundColors[i, j]);
-                        (flipped._backgroundColors[i, j], flipped._backgroundColors[i, flipped.height - 1 - j]) = (flipped._backgroundColors[i, flipped.height - 1 - j], flipped._backgroundColors[i, j]);
+                        (flipped._fg[i, j], flipped._fg[i, flipped.height - 1 - j]) = (flipped._fg[i, flipped.height - 1 - j], flipped._fg[i, j]);
+                        (flipped._bg[i, j], flipped._bg[i, flipped.height - 1 - j]) = (flipped._bg[i, flipped.height - 1 - j], flipped._bg[i, j]);
                     }
                     for (int j = 0; j < flipped.width; j++)
                     {
@@ -54,8 +55,8 @@ namespace AsciiForge.Resources
                     for (int j = 0; j < flipped.height / 2; j++)
                     {
                         (flipped._text[j, i], flipped._text[j, flipped.width - 1 - i]) = (flipped._text[j, flipped.width - 1 - i], flipped._text[j, i]);
-                        (flipped._foregroundColors[j, i], flipped._foregroundColors[j, flipped.width - 1 - i]) = (flipped._foregroundColors[j, flipped.width - 1 - i], flipped._foregroundColors[j, i]);
-                        (flipped._backgroundColors[j, i], flipped._backgroundColors[j, flipped.width - 1 - i]) = (flipped._backgroundColors[j, flipped.width - 1 - i], flipped._backgroundColors[j, i]);
+                        (flipped._fg[j, i], flipped._fg[j, flipped.width - 1 - i]) = (flipped._fg[j, flipped.width - 1 - i], flipped._fg[j, i]);
+                        (flipped._bg[j, i], flipped._bg[j, flipped.width - 1 - i]) = (flipped._bg[j, flipped.width - 1 - i], flipped._bg[j, i]);
                     }
                     for (int j = 0; j < flipped.height; j++)
                     {
@@ -74,11 +75,11 @@ namespace AsciiForge.Resources
         }
 
         [JsonConstructor]
-        public TextureResource(char[,] text, ConsoleColor[,] foregroundColors, ConsoleColor[,] backgroundColors)
+        public TextureResource(char[,] text, Color[,] fg, Color[,] bg)
         {
             _text = text;
-            _foregroundColors = foregroundColors;
-            _backgroundColors = backgroundColors;
+            _fg = fg;
+            _bg = bg;
 
             (bool isValid, string error) = IsValid();
             if (!isValid)
@@ -88,8 +89,8 @@ namespace AsciiForge.Resources
         }
         public TextureResource(TextureResource texture)
             : this((char[,])texture._text.Clone(),
-                  (ConsoleColor[,])texture._foregroundColors.Clone(),
-                  (ConsoleColor[,])texture._backgroundColors.Clone())
+                  (Color[,])texture._fg.Clone(),
+                  (Color[,])texture._bg.Clone())
         {
         }
 
@@ -105,12 +106,12 @@ namespace AsciiForge.Resources
                 error = "Texture with invalid width or height";
                 return (isValid, error);
             }
-            if ((foregroundColors?.GetLength(1) ?? 0) != width || foregroundColors!.GetLength(0) != height)
+            if ((_fg?.GetLength(1) ?? 0) != width || _fg!.GetLength(0) != height)
             {
                 error = "Texture with foreground colors of different width or height";
                 return (isValid, error);
             }
-            if ((backgroundColors?.GetLength(1) ?? 0) != width || backgroundColors!.GetLength(0) != height)
+            if ((_bg?.GetLength(1) ?? 0) != width || _bg!.GetLength(0) != height)
             {
                 error = "Texture with background colors of different width or height";
                 return (isValid, error);

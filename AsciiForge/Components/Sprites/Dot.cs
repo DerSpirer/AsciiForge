@@ -1,4 +1,5 @@
 ﻿using AsciiForge.Resources;
+using System.Drawing;
 
 namespace AsciiForge.Components.Sprites
 {
@@ -6,7 +7,7 @@ namespace AsciiForge.Components.Sprites
     {
         private void Start()
         {
-            texture = new TextureResource(new char[,] { { 'o' } }, new ConsoleColor[,] { { ConsoleColor.White } }, new ConsoleColor[,] { { ConsoleColor.Black } });
+            texture = new TextureResource(new char[,] { { 'o' } }, new Color[,] { { Color.White } }, new Color[,] { { Color.Black } });
         }
     }
 }

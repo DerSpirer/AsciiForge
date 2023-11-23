@@ -1,4 +1,5 @@
 ﻿using AsciiForge.Resources;
+using System.Drawing;
 
 namespace AsciiForge.Engine
 {
@@ -28,20 +29,20 @@ namespace AsciiForge.Engine
                 return _text;
             }
         }
-        private readonly ConsoleColor[,] _foregroundColors;
-        public ConsoleColor[,] foregroundColors
+        private readonly Color[,] _fg;
+        public Color[,] fg
         {
             get
             {
-                return _foregroundColors;
+                return _fg;
             }
         }
-        private readonly ConsoleColor[,] _backgroundColors;
-        public ConsoleColor[,] backgroundColors
+        private readonly Color[,] _bg;
+        public Color[,] bg
         {
             get
             {
-                return _backgroundColors;
+                return _bg;
             }
         }
 
@@ -55,8 +56,8 @@ namespace AsciiForge.Engine
             _width = width;
             _height = height;
             _text = new char[_height,_width];
-            _foregroundColors = new ConsoleColor[_height,_width];
-            _backgroundColors = new ConsoleColor[_height,_width];
+            _fg = new Color[_height,_width];
+            _bg = new Color[_height,_width];
             Clear();
         }
         public Canvas(Canvas canvas)
@@ -69,8 +70,8 @@ namespace AsciiForge.Engine
             _width = canvas.width;
             _height = canvas.height;
             _text = (char[,])canvas._text.Clone();
-            _foregroundColors = (ConsoleColor[,])canvas._foregroundColors.Clone();
-            _backgroundColors = (ConsoleColor[,])canvas._backgroundColors.Clone();
+            _fg = (Color[,])canvas._fg.Clone();
+            _bg = (Color[,])canvas._bg.Clone();
         }
 
         public void Clear()
@@ -80,12 +81,12 @@ namespace AsciiForge.Engine
                 for (int j = 0; j < _width; j++)
                 {
                     _text[i,j] = ' ';
-                    _foregroundColors[i,j] = ConsoleColor.White;
-                    _backgroundColors[i,j] = ConsoleColor.Black;
+                    _fg[i,j] = Color.White;
+                    _bg[i,j] = Color.Black;
                 }
             }
         }
-        public void Draw(char? chr, ConsoleColor? foregroundColor, ConsoleColor? backgroundColor, float x, float y)
+        public void Draw(char? chr, Color? fg, Color? bg, float x, float y)
         {
             if (x < 0 || x >= _width || y < 0 || y >= _height)
             {
@@ -98,20 +99,20 @@ namespace AsciiForge.Engine
             {
                 _text[yy, xx] = (char)chr;
             }
-            if (foregroundColor != null)
+            if (fg != null)
             {
-                _foregroundColors[yy, xx] = (ConsoleColor)foregroundColor;
+                _fg[yy, xx] = (Color)fg;
             }
-            if (backgroundColor != null)
+            if (bg != null)
             {
-                _backgroundColors[yy, xx] = (ConsoleColor)backgroundColor;
+                _bg[yy, xx] = (Color)bg;
             }
         }
-        public void Draw(string text, ConsoleColor?[] foregroundColors, ConsoleColor?[] backgroundColors, float x, float y)
+        public void Draw(string text, Color?[] fg, Color?[] bg, float x, float y)
         {
             for (int i = 0; i < text.Length; i++)
             {
-                Draw(text[i], foregroundColors[i], backgroundColors[i], x + i, y);
+                Draw(text[i], fg[i], bg[i], x + i, y);
             }
         }
         public void Draw(TextureResource texture, float x, float y)
@@ -120,7 +121,7 @@ namespace AsciiForge.Engine
             {
                 for (int j = 0; j < texture.width; j++)
                 {
-                    Draw(texture.text[i, j], texture.foregroundColors[i, j], texture.backgroundColors[i, j], x + j, y + i);
+                    Draw(texture.text[i, j], texture.fg[i, j], texture.bg[i, j], x + j, y + i);
                 }
             }
         }

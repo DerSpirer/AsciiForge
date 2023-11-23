@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace AsciiForge.Helpers
 {
-    public class JsonComponentPropertyConverter : JsonConverter<(string, object?)>
+    internal class JsonComponentPropertyConverter : JsonConverter<(string, object?)>
     {
         public override (string, object?) Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

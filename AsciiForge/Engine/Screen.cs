@@ -1,10 +1,20 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace AsciiForge.Engine
 {
     public static class Screen
     {
+        // Colors
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool SetConsoleMode(IntPtr hConsoleHandle, int mode);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern bool GetConsoleMode(IntPtr handle, out int mode);
+        [DllImport("kernel32.dll", SetLastError = true)]
+        public static extern IntPtr GetStdHandle(int handle);
+
+        // Delete window menu
         [DllImport("user32.dll")]
         public static extern int DeleteMenu(IntPtr hMenu, int nPosition, int wFlags);
         [DllImport("user32.dll")]
@@ -49,12 +59,10 @@ namespace AsciiForge.Engine
         internal static void Draw()
         {
             List<PrintCommand> printCommands = GetPrintCommands();
-            foreach (PrintCommand printCommand in printCommands)
+            foreach (PrintCommand cmd in printCommands)
             {
-                Console.ForegroundColor = printCommand.foregroundColor;
-                Console.BackgroundColor = printCommand.backgroundColor;
-                Console.SetCursorPosition(printCommand.x, printCommand.y);
-                Console.Write(printCommand.text);
+                Console.SetCursorPosition(cmd.x, cmd.y);
+                Console.Write($"\x1b[48;2;{cmd.bg.R};{cmd.bg.G};{cmd.bg.B}m\x1b[38;2;{cmd.fg.R};{cmd.fg.G};{cmd.fg.B}m{cmd.text}");
             }
             _prevCanvas = new Canvas(canvas);
         }
@@ -77,15 +85,15 @@ namespace AsciiForge.Engine
             public int x;
             public int y;
             public string text;
-            public ConsoleColor foregroundColor;
-            public ConsoleColor backgroundColor;
-            public PrintCommand(int x, int y, string text, ConsoleColor foregroundColor, ConsoleColor backgroundColor)
+            public Color fg;
+            public Color bg;
+            public PrintCommand(int x, int y, string text, Color fg, Color bg)
             {
                 this.x = x;
                 this.y = y;
                 this.text = text;
-                this.foregroundColor = foregroundColor;
-                this.backgroundColor = backgroundColor;
+                this.fg = fg;
+                this.bg = bg;
             }
         }
         private static List<PrintCommand> GetPrintCommands()
@@ -93,8 +101,8 @@ namespace AsciiForge.Engine
             List<PrintCommand> commands = new List<PrintCommand>();
             
             char[] text = canvas.text.Cast<char>().ToArray();
-            ConsoleColor[] foregroundColors = canvas.foregroundColors.Cast<ConsoleColor>().ToArray();
-            ConsoleColor[] backgroundColors = canvas.backgroundColors.Cast<ConsoleColor>().ToArray();
+            Color[] fg = canvas.fg.Cast<Color>().ToArray();
+            Color[] bg = canvas.bg.Cast<Color>().ToArray();
             string textString = new string(text);
 
             if (_prevCanvas == null || _prevCanvas.width != canvas.width || _prevCanvas.height != canvas.height)
@@ -103,40 +111,40 @@ namespace AsciiForge.Engine
                 int commandIndex = 0;
                 for (int i = 0; i < _width * _height; i++)
                 {
-                    if (foregroundColors[i] != foregroundColors[commandIndex] || backgroundColors[i] != backgroundColors[commandIndex])
+                    if (fg[i] != fg[commandIndex] || bg[i] != bg[commandIndex])
                     {
-                        commands.Add(new PrintCommand(commandIndex % _width, commandIndex / _width, textString[commandIndex..i], foregroundColors[commandIndex], backgroundColors[commandIndex]));
+                        commands.Add(new PrintCommand(commandIndex % _width, commandIndex / _width, textString[commandIndex..i], fg[commandIndex], bg[commandIndex]));
                         commandIndex = i;
                     }
                 }
-                commands.Add(new PrintCommand(commandIndex % _width, commandIndex / _width, textString[commandIndex..], foregroundColors[commandIndex], backgroundColors[commandIndex]));
+                commands.Add(new PrintCommand(commandIndex % _width, commandIndex / _width, textString[commandIndex..], fg[commandIndex], bg[commandIndex]));
             }
             else
             {
                 char[] prevText = _prevCanvas.text.Cast<char>().ToArray();
-                ConsoleColor[] prevForegroundColors = _prevCanvas.foregroundColors.Cast<ConsoleColor>().ToArray();
-                ConsoleColor[] prevBackgroundColors = _prevCanvas.backgroundColors.Cast<ConsoleColor>().ToArray();
+                Color[] prevFg = _prevCanvas.fg.Cast<Color>().ToArray();
+                Color[] prevBg = _prevCanvas.bg.Cast<Color>().ToArray();
 
                 int commandIndex = 0;
                 for (int i = 0; i < _width * _height; i++)
                 {
-                    if (text[i] == prevText[i] && foregroundColors[i] == prevForegroundColors[i] && backgroundColors[i] == prevBackgroundColors[i])
+                    if (text[i] == prevText[i] && fg[i] == prevFg[i] && bg[i] == prevBg[i])
                     {
                         if (i > commandIndex)
                         {
-                            commands.Add(new PrintCommand(commandIndex % _width, commandIndex / _width, textString[commandIndex..i], foregroundColors[commandIndex], backgroundColors[commandIndex]));
+                            commands.Add(new PrintCommand(commandIndex % _width, commandIndex / _width, textString[commandIndex..i], fg[commandIndex], bg[commandIndex]));
                         }
                         commandIndex = i + 1;
                     }
-                    else if (foregroundColors[i] != foregroundColors[commandIndex] || backgroundColors[i] != backgroundColors[commandIndex])
+                    else if (fg[i] != fg[commandIndex] || bg[i] != bg[commandIndex])
                     {
-                        commands.Add(new PrintCommand(commandIndex % _width, commandIndex / _width, textString[commandIndex..i], foregroundColors[commandIndex], backgroundColors[commandIndex]));
+                        commands.Add(new PrintCommand(commandIndex % _width, commandIndex / _width, textString[commandIndex..i], fg[commandIndex], bg[commandIndex]));
                         commandIndex = i;
                     }
                 }
                 if (commandIndex < _width * _height)
                 {
-                    commands.Add(new PrintCommand(commandIndex % _width, commandIndex / _width, textString[commandIndex..], foregroundColors[commandIndex], backgroundColors[commandIndex]));
+                    commands.Add(new PrintCommand(commandIndex % _width, commandIndex / _width, textString[commandIndex..], fg[commandIndex], bg[commandIndex]));
                 }
             }
 

@@ -1,5 +1,6 @@
 ﻿using AsciiForge.Engine;
 using AsciiForge.Resources;
+using System.Drawing;
 
 namespace AsciiForge.Components.Sprites
 {
@@ -46,15 +47,15 @@ namespace AsciiForge.Components.Sprites
         private void CreateBox()
         {
             char[,] text = new char[boxHeight,boxWidth];
-            ConsoleColor[,] foregroundColors = new ConsoleColor[boxHeight,boxWidth];
-            ConsoleColor[,] backgroundColors = new ConsoleColor[boxHeight,boxWidth];
+            Color[,] fg = new Color[boxHeight,boxWidth];
+            Color[,] bg = new Color[boxHeight,boxWidth];
             for (int i = 0; i < boxHeight; i++)
             {
                 for (int j = 0; j < boxWidth; j++)
                 {
                     text[i,j] = ' ';
-                    foregroundColors[i,j] = ConsoleColor.White;
-                    backgroundColors[i,j] = ConsoleColor.Black;
+                    fg[i,j] = Color.White;
+                    bg[i,j] = Color.Black;
                 }
             }
 
@@ -73,7 +74,7 @@ namespace AsciiForge.Components.Sprites
                 text[i, boxWidth - 1] = '|';
             }
 
-            texture = new TextureResource(text, foregroundColors, backgroundColors);
+            texture = new TextureResource(text, fg, bg);
         }
     }
 }

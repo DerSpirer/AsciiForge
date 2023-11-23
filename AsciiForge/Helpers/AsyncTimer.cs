@@ -1,6 +1,6 @@
 ﻿namespace AsciiForge.Helpers
 {
-    public class AsyncTimer
+    internal class AsyncTimer
     {
         private Func<object?, Task> _function;
         private object? _args;

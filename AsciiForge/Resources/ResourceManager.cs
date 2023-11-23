@@ -1,5 +1,6 @@
 ﻿using AsciiForge.Engine;
 using AsciiForge.Helpers;
+using System.Drawing;
 using System.Text.Json;
 
 namespace AsciiForge.Resources
@@ -96,8 +97,9 @@ namespace AsciiForge.Resources
                             {
                                 continue;
                             }
+                            options.Converters.Add(new JsonColorConverter());
                             options.Converters.Add(new JsonRectangularArrayConverter<char>());
-                            options.Converters.Add(new JsonRectangularArrayConverter<ConsoleColor>());
+                            options.Converters.Add(new JsonRectangularArrayConverter<Color>());
                             sprites.Add(r.name, await JsonSerializer.DeserializeAsync<SpriteResource>(fileStream, options) ?? throw new Exception("Failed to deserialize sprite resource file"));
                             break;
                         case ResourceFile.ResourceType.Sound:
