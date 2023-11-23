@@ -45,6 +45,7 @@ namespace AsciiForge.Engine
             }
         }
 
+        [JsonConstructor]
         public Vector2(float x, float y)
         {
             _vector = new System.Numerics.Vector2(x, y);
@@ -63,6 +64,15 @@ namespace AsciiForge.Engine
             }
             x /= len;
             y /= len;
+        }
+
+        public static Vector2 operator +(Vector2 v1, Vector2 v2)
+        {
+            return new Vector2(v1.x + v2.x, v1.y + v2.y);
+        }
+        public static Vector2 operator -(Vector2 v1, Vector2 v2)
+        {
+            return new Vector2(v1.x - v2.x, v1.y - v2.y);
         }
     }
 }

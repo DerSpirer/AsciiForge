@@ -55,9 +55,9 @@ namespace AsciiForge.Engine
             }
             _width = width;
             _height = height;
-            _text = new char[_height,_width];
-            _fg = new Color[_height,_width];
-            _bg = new Color[_height,_width];
+            _text = new char[_height, _width];
+            _fg = new Color[_height, _width];
+            _bg = new Color[_height, _width];
             Clear();
         }
         public Canvas(Canvas canvas)
@@ -86,36 +86,37 @@ namespace AsciiForge.Engine
                 }
             }
         }
-        public void Draw(char? chr, Color fg, Color bg, float x, float y, BlendMode blendMode = BlendMode.Alpha)
+        public void Draw(char? chr, Color fg, Color bg, Vector3 pos, BlendMode blendMode = BlendMode.Alpha)
         {
-            if (x < 0 || x >= _width || y < 0 || y >= _height)
+            pos = pos - Game.camera.pos + new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
+            int x = (int)Math.Round(pos.x);
+            int y = (int)Math.Round(pos.y);
+            if (x < 0 || x >= _width || y < 0 || y >= _height || pos.z <= 0)
             {
                 return;
             }
 
-            int xx = (int)Math.Round(x);
-            int yy = (int)Math.Round(y);
             if (chr != null)
             {
-                _text[yy, xx] = (char)chr;
+                _text[y, x] = (char)chr;
             }
-            _fg[yy, xx] = BlendColors(fg, _fg[yy, xx], blendMode);
-            _bg[yy, xx] = BlendColors(bg, _bg[yy, xx], blendMode);
+            _fg[y, x] = BlendColors(fg, _fg[y, x], blendMode);
+            _bg[y, x] = BlendColors(bg, _bg[y, x], blendMode);
         }
-        public void Draw(string text, Color[] fg, Color[] bg, float x, float y, BlendMode blendMode = BlendMode.Alpha)
+        public void Draw(string text, Color[] fg, Color[] bg, Vector3 pos, BlendMode blendMode = BlendMode.Alpha)
         {
             for (int i = 0; i < text.Length; i++)
             {
-                Draw(text[i], fg[i], bg[i], x + i, y, blendMode);
+                Draw(text[i], fg[i], bg[i], new Vector3(pos.x + i, pos.y, pos.z), blendMode);
             }
         }
-        public void Draw(TextureResource texture, float x, float y, BlendMode blendMode = BlendMode.Alpha)
+        public void Draw(TextureResource texture, Vector3 pos, BlendMode blendMode = BlendMode.Alpha)
         {
             for (int i = 0; i < texture.height; i++)
             {
                 for (int j = 0; j < texture.width; j++)
                 {
-                    Draw(texture.text[i, j], texture.fg[i, j], texture.bg[i, j], x + j, y + i, blendMode);
+                    Draw(texture.text[i, j], texture.fg[i, j], texture.bg[i, j], new Vector3(pos.x + j, pos.y + i, pos.z), blendMode);
                 }
             }
         }

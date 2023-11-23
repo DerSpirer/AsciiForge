@@ -115,7 +115,7 @@ namespace AsciiForge.Components.Sprites
                 {
                     drawTexture = drawTexture.flippedVertical;
                 }
-                canvas.Draw(drawTexture, transform.position.x + offset.x, transform.position.y + offset.y);
+                canvas.Draw(drawTexture, transform.position + new Vector3(offset));
             }
         }
 

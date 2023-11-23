@@ -47,9 +47,14 @@ namespace AsciiForge.Engine
             }
         }
 
+        [JsonConstructor]
         public Vector3(float x, float y, float z)
         {
             _vector = new System.Numerics.Vector3(x, y, z);
+        }
+        public Vector3(Vector2 v)
+        {
+            _vector = new System.Numerics.Vector3(v.x, v.y, 0);
         }
 
         public override string ToString()
@@ -66,6 +71,15 @@ namespace AsciiForge.Engine
             x /= len;
             y /= len;
             z /= len;
+        }
+
+        public static Vector3 operator +(Vector3 v1, Vector3 v2)
+        {
+            return new Vector3(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
+        }
+        public static Vector3 operator -(Vector3 v1, Vector3 v2)
+        {
+            return new Vector3(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
         }
     }
 }
