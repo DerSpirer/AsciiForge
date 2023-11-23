@@ -6,8 +6,8 @@ namespace AsciiForge.Components.Sprites
 {
     public class Sprite : Drawable
     {
-        private string _sprite;
-        public string sprite
+        private string? _sprite;
+        public string? sprite
         {
             get
             {
@@ -15,22 +15,34 @@ namespace AsciiForge.Components.Sprites
             }
             set
             {
+                if (string.IsNullOrEmpty(value))
+                {
+                    _sprite = value;
+                    isPlaying = false;
+                    _clipLength = 0;
+                    spriteIndex = 0;
+                    return;
+                }
                 if (!ResourceManager.sprites.ContainsKey(value))
                 {
                     Logger.Error($"Trying to set a sprite to a resource that does not exist: {value}");
                     throw new Exception($"Trying to set a sprite to a resource that does not exist: {value}");
                 }
                 _sprite = value;
-                isPlaying = resource.isPlaying;
+                isPlaying = resource!.isPlaying;
                 _clipLength = resource.clipLength;
                 spriteIndex = resource.startFrame;
             }
         }
         [JsonIgnore]
-        public SpriteResource resource
+        public SpriteResource? resource
         {
             get
             {
+                if (string.IsNullOrEmpty(_sprite))
+                {
+                    return null;
+                }
                 return ResourceManager.sprites[_sprite];
             }
         }
@@ -44,6 +56,10 @@ namespace AsciiForge.Components.Sprites
             }
             set
             {
+                if (resource == null)
+                {
+                    return;
+                }
                 if (value < 0)
                 {
                     Logger.Error("Sprite clip length must not be negative");
@@ -65,6 +81,10 @@ namespace AsciiForge.Components.Sprites
             }
             set
             {
+                if (resource == null)
+                {
+                    return;
+                }
                 if (value < 0 || value >= clipLength)
                 {
                     Logger.Error("Sprite clip time must be between 0 and clip length");
@@ -82,13 +102,20 @@ namespace AsciiForge.Components.Sprites
             }
             set
             {
+                if (resource == null)
+                {
+                    return;
+                }
                 if (spriteIndex < 0 || spriteIndex >= spriteLength)
                 {
                     Logger.Error("Sprite index must be between 0 and sprite length");
                     throw new Exception("Sprite index must be between 0 and sprite length");
                 }
                 _clipTime = ((float)value) / spriteLength * _clipLength;
-                texture = resource.textures[value];
+                if (resource != null)
+                {
+                    texture = resource.textures[value];
+                }
             }
         }
         [JsonIgnore]
@@ -96,7 +123,23 @@ namespace AsciiForge.Components.Sprites
         {
             get
             {
-                return resource.textures.Length;
+                if (resource != null)
+                {
+                    return resource.textures.Length;
+                }
+                return 0;
+            }
+        }
+        [JsonIgnore]
+        public TextureResource? currTexture
+        {
+            get
+            {
+                if (resource != null)
+                {
+                    return resource.textures[spriteIndex];
+                }
+                return null;
             }
         }
 
@@ -109,7 +152,7 @@ namespace AsciiForge.Components.Sprites
                 int currFrame = spriteIndex;
                 if (currFrame != prevFrame)
                 {
-                    texture = resource.textures[currFrame];
+                    texture = currTexture;
                 }
             }
         }

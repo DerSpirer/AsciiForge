@@ -1,4 +1,5 @@
-﻿using AsciiForge.Resources;
+﻿using AsciiForge.Components;
+using AsciiForge.Resources;
 
 namespace AsciiForge.Engine
 {
@@ -9,6 +10,18 @@ namespace AsciiForge.Engine
         public int currRoom { get; private set; } = 0;
         private readonly List<Entity> _entities = new List<Entity>();
         public List<Entity> entities { get { return _entities; } }
+        public Camera camera
+        {
+            get
+            {
+                Camera? camera = FindComponent<Camera>();
+                if (camera == null)
+                {
+                    throw new Exception("Failed to locate camera component");
+                }
+                return camera;
+            }
+        }
 
         private long? _lastUpdateTime = null;
 
@@ -66,6 +79,12 @@ namespace AsciiForge.Engine
             {
                 await Instantiate(instanceResource);
             }
+
+            // Add default main camera
+            if (FindComponent<Camera>() == null)
+            {
+                await Instantiate("entMainCamera");
+            }
         }
         private async Task UnloadRoom()
         {
@@ -77,6 +96,19 @@ namespace AsciiForge.Engine
             _entities.Clear();
         }
 
+        public T? FindComponent<T>()
+            where T : class
+        {
+            foreach (Entity entity in _entities)
+            {
+                T? component = entity.FindComponent<T>();
+                if (component != null)
+                {
+                    return component;
+                }
+            }
+            return null;
+        }
         public Entity? FindEntity(string species) => _entities.FirstOrDefault(e => e.species == species);
         public List<Entity> FindEntities(string species) => _entities.Where(e => e.species == species).ToList();
         public async Task<Entity> Instantiate()

@@ -6,7 +6,6 @@ namespace AsciiForge.Engine
 {
     public static class Game
     {
-        public static Camera camera { get; private set; }
         public static World world { get; private set; }
         private static int _frameRate;
         public static int frameRate
@@ -85,8 +84,6 @@ namespace AsciiForge.Engine
                 }
                 _started = true;
 
-                Screen.Init();
-
                 await ResourceManager.Load();
                 if (ResourceManager.rooms.Count <= 0)
                 {
@@ -96,8 +93,7 @@ namespace AsciiForge.Engine
                 world = new World(ResourceManager.rooms);
                 await world.Start();
 
-                camera = new Camera();
-                camera.pos = new Vector3(Screen.width / 2f, Screen.height / 2f, -10);
+                Screen.Init();
 
                 updateRate = 60;
                 frameRate = 60;

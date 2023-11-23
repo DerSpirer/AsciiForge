@@ -38,6 +38,7 @@ namespace AsciiForge.Components.Sprites
         public int width { get; private set; }
         [JsonIgnore]
         public int height { get; private set; }
+        public bool isVisible { get; set; } = true;
         private Vector2 _offset;
         public Vector2 offset
         {
@@ -104,7 +105,7 @@ namespace AsciiForge.Components.Sprites
 
         protected void Draw(Canvas canvas)
         {
-            if (_texture != null)
+            if (_texture != null && isVisible)
             {
                 TextureResource drawTexture = _texture;
                 if (flipHorizontal)

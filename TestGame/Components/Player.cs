@@ -1,4 +1,5 @@
-﻿using AsciiForge.Components.Colliders;
+﻿using AsciiForge.Components;
+using AsciiForge.Components.Colliders;
 using AsciiForge.Components.Sprites;
 using AsciiForge.Engine;
 
@@ -21,6 +22,9 @@ namespace ConsoleGame.Components
             _collider = entity.FindComponent<ICollider>()!;
             _animator = entity.FindComponent<Animator>()!;
             _sprite = entity.FindComponent<Sprite>()!;
+
+            Game.world.camera.mode = Camera.Mode.FollowImmediate;
+            Game.world.camera.target = transform;
         }
         
         private void Update(float deltaTime)
@@ -69,7 +73,6 @@ namespace ConsoleGame.Components
                 }
                 transform.position.y += _velocity.y * deltaTime;
             }
-            Game.camera.pos = transform.position + new Vector3(0, 0, -10);
 
             if (Input.IsKeyReleased(Input.Key.Escape))
             {

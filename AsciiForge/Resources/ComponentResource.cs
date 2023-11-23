@@ -1,5 +1,5 @@
 ﻿using AsciiForge.Engine;
-using System.IO;
+using AsciiForge.Helpers;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -65,6 +65,7 @@ namespace AsciiForge.Resources
                             AllowTrailingCommas = true,
                             ReadCommentHandling = JsonCommentHandling.Skip,
                         };
+                        options.Converters.Add(new JsonColorConverter());
                         options.Converters.Add(new JsonStringEnumConverter());
                         object? deserializedValue = JsonSerializer.Deserialize(_properties[i].Item2?.ToString() ?? string.Empty, property.PropertyType, options);
                         _properties[i].Item2 = deserializedValue;

@@ -1,6 +1,6 @@
 ﻿namespace AsciiForge.Resources
 {
-    public class ResourceFormatException : Exception
+    internal class ResourceFormatException : Exception
     {
         public ResourceFormatException() : base() { }
         public ResourceFormatException(string message) : base(message) { }

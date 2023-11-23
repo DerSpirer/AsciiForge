@@ -81,14 +81,15 @@ namespace AsciiForge.Engine
                 for (int j = 0; j < _width; j++)
                 {
                     _text[i,j] = ' ';
-                    _fg[i,j] = Color.White;
-                    _bg[i,j] = Color.Black;
+                    _fg[i,j] = Color.FromArgb(0, Color.White);
+                    _bg[i,j] = BlendColors(Game.world.camera.bgColor, Color.Black, BlendMode.Alpha);
                 }
             }
+            Game.world.camera.DrawBg(this);
         }
         public void Draw(char? chr, Color fg, Color bg, Vector3 pos, BlendMode blendMode = BlendMode.Alpha)
         {
-            pos = pos - Game.camera.pos + new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
+            pos = pos - Game.world.camera.transform.position + new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
             int x = (int)Math.Round(pos.x);
             int y = (int)Math.Round(pos.y);
             if (x < 0 || x >= _width || y < 0 || y >= _height || pos.z <= 0)
@@ -117,6 +118,39 @@ namespace AsciiForge.Engine
                 for (int j = 0; j < texture.width; j++)
                 {
                     Draw(texture.text[i, j], texture.fg[i, j], texture.bg[i, j], new Vector3(pos.x + j, pos.y + i, pos.z), blendMode);
+                }
+            }
+        }
+        public void DrawGui(char? chr, Color fg, Color bg, Vector3 pos, BlendMode blendMode = BlendMode.Alpha)
+        {
+            int x = (int)Math.Round(pos.x);
+            int y = (int)Math.Round(pos.y);
+            if (x < 0 || x >= _width || y < 0 || y >= _height || pos.z <= Game.world.camera.transform.position.z)
+            {
+                return;
+            }
+
+            if (chr != null)
+            {
+                _text[y, x] = (char)chr;
+            }
+            _fg[y, x] = BlendColors(fg, _fg[y, x], blendMode);
+            _bg[y, x] = BlendColors(bg, _bg[y, x], blendMode);
+        }
+        public void DrawGui(string text, Color[] fg, Color[] bg, Vector3 pos, BlendMode blendMode = BlendMode.Alpha)
+        {
+            for (int i = 0; i < text.Length; i++)
+            {
+                DrawGui(text[i], fg[i], bg[i], new Vector3(pos.x + i, pos.y, pos.z), blendMode);
+            }
+        }
+        public void DrawGui(TextureResource texture, Vector3 pos, BlendMode blendMode = BlendMode.Alpha)
+        {
+            for (int i = 0; i < texture.height; i++)
+            {
+                for (int j = 0; j < texture.width; j++)
+                {
+                    DrawGui(texture.text[i, j], texture.fg[i, j], texture.bg[i, j], new Vector3(pos.x + j, pos.y + i, pos.z), blendMode);
                 }
             }
         }
