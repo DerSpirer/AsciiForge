@@ -46,7 +46,7 @@ namespace AsciiForge.Components.Sprites
         }
         private void CreateBox()
         {
-            char?[,] text = new char?[boxHeight,boxWidth];
+            char[,] text = new char[boxHeight,boxWidth];
             Color[,] fg = new Color[boxHeight,boxWidth];
             Color[,] bg = new Color[boxHeight,boxWidth];
             for (int i = 0; i < boxHeight; i++)
@@ -54,8 +54,8 @@ namespace AsciiForge.Components.Sprites
                 for (int j = 0; j < boxWidth; j++)
                 {
                     text[i,j] = ' ';
-                    fg[i,j] = Color.White;
-                    bg[i,j] = Color.Black;
+                    fg[i,j] = Color.Transparent;
+                    bg[i,j] = Color.Transparent;
                 }
             }
 
@@ -63,15 +63,23 @@ namespace AsciiForge.Components.Sprites
             text[0, boxWidth - 1] = '+';
             text[boxHeight - 1, boxWidth - 1] = '+';
             text[boxHeight - 1, 0] = '+';
+            fg[0, 0] = Color.White;
+            fg[0, boxWidth - 1] = Color.White;
+            fg[boxHeight - 1, boxWidth - 1] = Color.White;
+            fg[boxHeight - 1, 0] = Color.White;
             for (int i = 1; i < boxWidth - 1; i++)
             {
                 text[0, i] = '—';
                 text[boxHeight - 1, i] = '—';
+                fg[0, i] = Color.White;
+                fg[boxHeight - 1, i] = Color.White;
             }
             for (int i = 1; i < boxHeight - 1; i++)
             {
                 text[i, 0] = '|';
                 text[i, boxWidth - 1] = '|';
+                fg[i, 0] = Color.White;
+                fg[i, boxWidth - 1] = Color.White;
             }
 
             texture = new TextureResource(text, fg, bg);

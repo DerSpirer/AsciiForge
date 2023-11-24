@@ -10,14 +10,14 @@
         [ " ", "|", ">" ]
       ],
       "fg": [
-        [ "White", "White", "White" ],
+        [ "Transparent", "Transparent", "White" ],
         [ "White", "White", "DarkGray" ],
-        [ "White", "White", "DarkGray" ]
+        [ "Transparent", "White", "DarkGray" ]
       ],
       "bg": [
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ]
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ]
       ]
     },
     {
@@ -27,14 +27,14 @@
         [ " ", ">", "\\" ]
       ],
       "fg": [
-        [ "White", "White", "White" ],
+        [ "Transparent", "Transparent", "White" ],
         [ "White", "White", "DarkGray" ],
-        [ "White", "DarkGray", "White" ]
+        [ "Transparent", "DarkGray", "White" ]
       ],
       "bg": [
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ]
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ]
       ]
     },
     {
@@ -44,14 +44,14 @@
         [ "/", " ", "\\" ]
       ],
       "fg": [
-        [ "White", "White", "White" ],
+        [ "Transparent", "Transparent", "White" ],
         [ "White", "White", "DarkGray" ],
-        [ "DarkGray", "White", "White" ]
+        [ "DarkGray", "Transparent", "White" ]
       ],
       "bg": [
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ]
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ]
       ]
     },
     {
@@ -61,14 +61,14 @@
         [ " ", "|", ">" ]
       ],
       "fg": [
-        [ "White", "White", "White" ],
+        [ "Transparent", "Transparent", "White" ],
         [ "DarkGray", "White", "White" ],
-        [ "White", "DarkGray", "White" ]
+        [ "Transparent", "DarkGray", "White" ]
       ],
       "bg": [
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ]
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ]
       ]
     },
     {
@@ -78,14 +78,14 @@
         [ " ", ">", "\\" ]
       ],
       "fg": [
-        [ "White", "White", "White" ],
+        [ "Transparent", "Transparent", "White" ],
         [ "DarkGray", "White", "White" ],
-        [ "White", "White", "DarkGray" ]
+        [ "Transparent", "White", "DarkGray" ]
       ],
       "bg": [
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ]
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ]
       ]
     },
     {
@@ -95,14 +95,14 @@
         [ "/", " ", "\\" ]
       ],
       "fg": [
-        [ "White", "White", "White" ],
+        [ "Transparent", "Transparent", "White" ],
         [ "DarkGray", "White", "White" ],
-        [ "White", "White", "DarkGray" ]
+        [ "White", "Transparent", "DarkGray" ]
       ],
       "bg": [
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ]
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ]
       ]
     }
   ]

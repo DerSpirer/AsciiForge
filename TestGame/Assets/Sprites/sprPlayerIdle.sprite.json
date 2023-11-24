@@ -10,14 +10,14 @@
         [ "/", " ", "\\" ]
       ],
       "fg": [
+        [ "Transparent", "White", "Transparent" ],
         [ "White", "White", "White" ],
-        [ "White", "White", "White" ],
-        [ "White", "White", "White" ]
+        [ "White", "Transparent", "White" ]
       ],
       "bg": [
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ]
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ]
       ]
     }
   ]

@@ -5,8 +5,8 @@ namespace AsciiForge.Resources
 {
     public class TextureResource : Resource
     {
-        private readonly char?[,] _text;
-        public char?[,] text { get { return _text; } }
+        private readonly char[,] _text;
+        public char[,] text { get { return _text; } }
         private readonly Color[,] _fg;
         public Color[,] fg { get { return _fg; } }
         private readonly Color[,] _bg;
@@ -31,13 +31,10 @@ namespace AsciiForge.Resources
                     }
                     for (int j = 0; j < flipped.width; j++)
                     {
-                        if (flipped._text[i, j] != null)
+                        (char, char) pair = flipHorizontalChars.Find(c => flipped._text[i, j] == c.Item1 || flipped._text[i, j] == c.Item2);
+                        if (pair.Item1 != 0 && pair.Item2 != 0)
                         {
-                            (char, char) pair = flipHorizontalChars.Find(c => flipped._text[i, j] == c.Item1 || flipped._text[i, j] == c.Item2);
-                            if (pair.Item1 != 0 && pair.Item2 != 0)
-                            {
-                                flipped._text[i, j] = flipped._text[i, j] == pair.Item1 ? pair.Item2 : pair.Item1;
-                            }
+                            flipped._text[i, j] = flipped._text[i, j] == pair.Item1 ? pair.Item2 : pair.Item1;
                         }
                     }
                 }
@@ -60,13 +57,10 @@ namespace AsciiForge.Resources
                     }
                     for (int j = 0; j < flipped.height; j++)
                     {
-                        if (flipped._text[j, i] != null)
+                        (char, char) pair = flipVerticalChars.Find(c => flipped._text[j, i] == c.Item1 || flipped._text[j, i] == c.Item2);
+                        if (pair.Item1 != 0 && pair.Item2 != 0)
                         {
-                            (char, char) pair = flipVerticalChars.Find(c => flipped._text[j, i] == c.Item1 || flipped._text[j, i] == c.Item2);
-                            if (pair.Item1 != 0 && pair.Item2 != 0)
-                            {
-                                flipped._text[j, i] = flipped._text[j, i] == pair.Item1 ? pair.Item2 : pair.Item1;
-                            }
+                            flipped._text[j, i] = flipped._text[j, i] == pair.Item1 ? pair.Item2 : pair.Item1;
                         }
                     }
                 }
@@ -75,7 +69,7 @@ namespace AsciiForge.Resources
         }
 
         [JsonConstructor]
-        public TextureResource(char?[,] text, Color[,] fg, Color[,] bg)
+        public TextureResource(char[,] text, Color[,] fg, Color[,] bg)
         {
             _text = text;
             _fg = fg;
@@ -88,7 +82,7 @@ namespace AsciiForge.Resources
             }
         }
         public TextureResource(TextureResource texture)
-            : this((char?[,])texture._text.Clone(),
+            : this((char[,])texture._text.Clone(),
                   (Color[,])texture._fg.Clone(),
                   (Color[,])texture._bg.Clone())
         {

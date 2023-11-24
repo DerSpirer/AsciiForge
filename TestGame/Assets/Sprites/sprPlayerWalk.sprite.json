@@ -10,14 +10,14 @@
         [ "/", " ", "\\" ]
       ],
       "fg": [
-        [ "White", "White", "White" ],
+        [ "Transparent", "White", "Transparent" ],
         [ "White", "White", "DarkGray" ],
-        [ "DarkGray", "White", "White" ]
+        [ "DarkGray", "Transparent", "White" ]
       ],
       "bg": [
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ]
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ]
       ]
     },
     {
@@ -27,14 +27,14 @@
         [ " ", "|", " " ]
       ],
       "fg": [
-        [ "White", "White", "White" ],
+        [ "Transparent", "White", "Transparent" ],
         [ "White", "White", "DarkGray" ],
-        [ "White", "White", "White" ]
+        [ "Transparent", "White", "Transparent" ]
       ],
       "bg": [
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ]
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ]
       ]
     },
     {
@@ -44,14 +44,14 @@
         [ "/", " ", "\\" ]
       ],
       "fg": [
-        [ "White", "White", "White" ],
+        [ "Transparent", "White", "Transparent" ],
         [ "DarkGray", "White", "White" ],
-        [ "White", "White", "DarkGray" ]
+        [ "White", "Transparent", "DarkGray" ]
       ],
       "bg": [
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ]
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ]
       ]
     },
     {
@@ -61,14 +61,14 @@
         [ " ", "|", " " ]
       ],
       "fg": [
-        [ "White", "White", "White" ],
+        [ "Transparent", "White", "Transparent" ],
         [ "DarkGray", "White", "White" ],
-        [ "White", "White", "White" ]
+        [ "Transparent", "White", "Transparent" ]
       ],
       "bg": [
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ],
-        [ "Black", "Black", "Black" ]
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ],
+        [ "Transparent", "Transparent", "Transparent" ]
       ]
     }
   ]

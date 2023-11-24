@@ -87,7 +87,7 @@ namespace AsciiForge.Engine
             }
             Game.world.camera.DrawBg(this);
         }
-        public void Draw(char? chr, Color fg, Color bg, Vector3 pos, BlendMode blendMode = BlendMode.Alpha)
+        public void Draw(char chr, Color fg, Color bg, Vector3 pos, BlendMode blendMode = BlendMode.Alpha)
         {
             pos = pos - Game.world.camera.transform.position + new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
             int x = (int)Math.Round(pos.x);
@@ -97,9 +97,9 @@ namespace AsciiForge.Engine
                 return;
             }
 
-            if (chr != null)
+            if (fg.A > 0)
             {
-                _text[y, x] = (char)chr;
+                _text[y, x] = chr;
             }
             _fg[y, x] = BlendColors(fg, _fg[y, x], blendMode);
             _bg[y, x] = BlendColors(bg, _bg[y, x], blendMode);
@@ -121,7 +121,7 @@ namespace AsciiForge.Engine
                 }
             }
         }
-        public void DrawGui(char? chr, Color fg, Color bg, Vector3 pos, BlendMode blendMode = BlendMode.Alpha)
+        public void DrawGui(char chr, Color fg, Color bg, Vector3 pos, BlendMode blendMode = BlendMode.Alpha)
         {
             int x = (int)Math.Round(pos.x);
             int y = (int)Math.Round(pos.y);
@@ -130,9 +130,9 @@ namespace AsciiForge.Engine
                 return;
             }
 
-            if (chr != null)
+            if (fg.A > 0)
             {
-                _text[y, x] = (char)chr;
+                _text[y, x] = chr;
             }
             _fg[y, x] = BlendColors(fg, _fg[y, x], blendMode);
             _bg[y, x] = BlendColors(bg, _bg[y, x], blendMode);
