@@ -34,7 +34,7 @@ namespace AsciiForge.Resources
                     Logger.Error($"Invalid resource file path: {path}");
                     throw new Exception($"Invalid resource file path: {path}");
                 }
-                if (!IsResource(path))
+                if (!_typesSuffixes.Any(t => path.EndsWith(t.Item2)))
                 {
                     Logger.Error($"Unknown resource type: {path}");
                     throw new Exception($"Unknown resource type: {path}");
@@ -49,34 +49,16 @@ namespace AsciiForge.Resources
             }
 
             private static readonly (ResourceType, string)[] _typesSuffixes = new (ResourceType, string)[] { (ResourceType.Sprite, ".sprite.json"), (ResourceType.Sound, ".sound.json"), (ResourceType.Entity, ".entity.json"), (ResourceType.Room, ".room.json") };
-            public static bool IsResource(string path) => _typesSuffixes.Any(s => path.EndsWith(s.Item2));
         }
 
         internal static async Task Load()
         {
             string directory = Path.Combine(Directory.GetCurrentDirectory(), "Assets");
-            ResourceFile[] resources = await FindResources(directory);
-            if (resources.Length <= 0)
-            {
-                return;
-            }
-            await LoadResources(resources.Where(r => r.type == ResourceFile.ResourceType.Sprite).ToArray());
-            await LoadResources(resources.Where(r => r.type == ResourceFile.ResourceType.Sound).ToArray());
-            await LoadResources(resources.Where(r => r.type == ResourceFile.ResourceType.Entity).ToArray());
-            await LoadResources(resources.Where(r => r.type == ResourceFile.ResourceType.Room).ToArray());
+            await LoadResources(Directory.GetFiles(directory, "*.sprite.json", SearchOption.AllDirectories).Select(f => new ResourceFile(f)).ToArray());
+            await LoadResources(Directory.GetFiles(directory, "*.sound.json", SearchOption.AllDirectories).Select(f => new ResourceFile(f)).ToArray());
+            await LoadResources(Directory.GetFiles(directory, "*.entity.json", SearchOption.AllDirectories).Select(f => new ResourceFile(f)).ToArray());
+            await LoadResources(Directory.GetFiles(directory, "*.room.json", SearchOption.AllDirectories).Select(f => new ResourceFile(f)).ToArray());
             await LoadRoomOrder(directory);
-        }
-        private static async Task<ResourceFile[]> FindResources(string directory)
-        {
-            List<ResourceFile> resourcePaths = new List<ResourceFile>();
-
-            foreach (string dir in Directory.GetDirectories(directory))
-            {
-                resourcePaths.AddRange(await FindResources(dir));
-            }
-            resourcePaths.AddRange(Directory.GetFiles(directory).Where(f => ResourceFile.IsResource(f)).Select(f => new ResourceFile(f)));
-
-            return resourcePaths.ToArray();
         }
         private static async Task LoadResources(ResourceFile[] resources)
         {

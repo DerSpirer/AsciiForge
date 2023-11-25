@@ -1,6 +1,7 @@
 ﻿using AsciiForge.Engine;
 using AsciiForge.Resources;
 using System.Text.Json.Serialization;
+using static AsciiForge.Engine.Canvas;
 
 namespace AsciiForge.Components.Sprites
 {
@@ -39,6 +40,7 @@ namespace AsciiForge.Components.Sprites
         [JsonIgnore]
         public int height { get; private set; }
         public bool isVisible { get; set; } = true;
+        public BlendMode blendMode { get; set; } = BlendMode.Alpha;
         private Vector2 _offset;
         public Vector2 offset
         {
