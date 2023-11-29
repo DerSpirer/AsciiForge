@@ -97,11 +97,19 @@ namespace AsciiForge.Engine
                     Logger.Critical("Cannot start game with 0 rooms");
                     return ExitCode.NoRooms;
                 }
+
+                // Title screen
                 world = new World(ResourceManager.rooms);
                 await world.Start();
 
                 Screen.Init();
+                
+                const string title = "My Game";
+                Console.SetCursorPosition((int)Math.Floor(Screen.width / 2f - title.Length / 2f), (int)Math.Floor(Screen.height / 2f));
+                Console.Write(title);
+                await Task.Delay(3000);
 
+                // Start update and draw loops
                 updateRate = 60;
                 frameRate = 60;
 

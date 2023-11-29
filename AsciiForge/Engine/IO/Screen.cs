@@ -49,6 +49,7 @@ namespace AsciiForge.Engine.IO
             Console.OutputEncoding = Encoding.UTF8;
             Console.CursorVisible = false;
             Console.SetWindowSize(_width, _height);
+            Console.Clear();
             
             _prevCanvas = null;
             canvas = new Canvas(_width, _height);

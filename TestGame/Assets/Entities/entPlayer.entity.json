@@ -42,13 +42,13 @@
         [ "currSprite", 0 ]
       ]
     },
-    {
-      "type": "AsciiForge.Components.LocalSound",
-      "properties": [
-        [ "isEnabled", true ],
-        [ "sound", "sndPlayerStep" ],
-        [ "isLooping", true ]
-      ]
-    }
+    //{
+    //  "type": "AsciiForge.Components.LocalSound",
+    //  "properties": [
+    //    [ "isEnabled", true ],
+    //    [ "sound", "sndPlayerStep" ],
+    //    [ "isLooping", true ]
+    //  ]
+    //}
   ]
 }
