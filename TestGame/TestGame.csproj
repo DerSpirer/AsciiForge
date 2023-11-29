@@ -24,6 +24,9 @@
     <None Update="Assets\Rooms\rmMain.room.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\Sounds\sndPlayerStep.sound.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Sprites\sprPlayerIdle.sprite.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

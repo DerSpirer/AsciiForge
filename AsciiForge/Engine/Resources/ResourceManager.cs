@@ -1,9 +1,10 @@
-﻿using AsciiForge.Engine;
+﻿using AsciiForge.Engine.IO;
 using AsciiForge.Helpers;
+using NAudio.Wave;
 using System.Drawing;
 using System.Text.Json;
 
-namespace AsciiForge.Resources
+namespace AsciiForge.Engine.Resources
 {
     public static class ResourceManager
     {
@@ -18,7 +19,7 @@ namespace AsciiForge.Resources
             public string path;
             public ResourceType type;
             public string name;
-            
+
             public enum ResourceType
             {
                 Sprite,
@@ -45,19 +46,19 @@ namespace AsciiForge.Resources
                 this.type = type;
                 int nameStart = path.LastIndexOf('\\');
                 nameStart = nameStart < 0 ? 0 : nameStart + 1;
-                this.name = path[nameStart..^suffix.Length];
+                name = path[nameStart..^suffix.Length];
             }
 
-            private static readonly (ResourceType, string)[] _typesSuffixes = new (ResourceType, string)[] { (ResourceType.Sprite, ".sprite.json"), (ResourceType.Sound, ".sound.json"), (ResourceType.Entity, ".entity.json"), (ResourceType.Room, ".room.json") };
+            public static readonly (ResourceType, string)[] _typesSuffixes = new (ResourceType, string)[] { (ResourceType.Sprite, ".sprite.json"), (ResourceType.Entity, ".entity.json"), (ResourceType.Room, ".room.json"), (ResourceType.Sound, ".sound.mp3"), (ResourceType.Sound, ".sound.wav"), };
         }
 
         internal static async Task Load()
         {
             string directory = Path.Combine(Directory.GetCurrentDirectory(), "Assets");
-            await LoadResources(Directory.GetFiles(directory, "*.sprite.json", SearchOption.AllDirectories).Select(f => new ResourceFile(f)).ToArray());
-            await LoadResources(Directory.GetFiles(directory, "*.sound.json", SearchOption.AllDirectories).Select(f => new ResourceFile(f)).ToArray());
-            await LoadResources(Directory.GetFiles(directory, "*.entity.json", SearchOption.AllDirectories).Select(f => new ResourceFile(f)).ToArray());
-            await LoadResources(Directory.GetFiles(directory, "*.room.json", SearchOption.AllDirectories).Select(f => new ResourceFile(f)).ToArray());
+            await LoadResources(Directory.EnumerateFiles(directory, "*.sprite.json", SearchOption.AllDirectories).Select(f => new ResourceFile(f)).ToArray());
+            await LoadResources(Directory.EnumerateFiles(directory, "*.sound.*", SearchOption.AllDirectories).Where(f => ResourceFile._typesSuffixes.Any(s => f.EndsWith(s.Item2))).Select(f => new ResourceFile(f)).ToArray());
+            await LoadResources(Directory.EnumerateFiles(directory, "*.entity.json", SearchOption.AllDirectories).Select(f => new ResourceFile(f)).ToArray());
+            await LoadResources(Directory.EnumerateFiles(directory, "*.room.json", SearchOption.AllDirectories).Select(f => new ResourceFile(f)).ToArray());
             await LoadRoomOrder(directory);
         }
         private static async Task LoadResources(ResourceFile[] resources)
@@ -89,7 +90,7 @@ namespace AsciiForge.Resources
                             {
                                 continue;
                             }
-                            sounds.Add(r.name, await JsonSerializer.DeserializeAsync<SoundResource>(fileStream, options) ?? throw new Exception("Failed to deserialize sound resource file"));
+                            sounds.Add(r.name, new SoundResource(r.path));
                             break;
                         case ResourceFile.ResourceType.Entity:
                             if (entities.ContainsKey(r.name))

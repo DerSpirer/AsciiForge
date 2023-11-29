@@ -1,6 +1,9 @@
 ﻿using System.Diagnostics;
+using AsciiForge.Engine.Audio;
+using AsciiForge.Engine.Ecs;
+using AsciiForge.Engine.IO;
+using AsciiForge.Engine.Resources;
 using AsciiForge.Helpers;
-using AsciiForge.Resources;
 
 namespace AsciiForge.Engine
 {
@@ -67,11 +70,15 @@ namespace AsciiForge.Engine
         public static async Task<ExitCode> Commence()
         {
             Logger.Info($"Start time: {DateTime.UtcNow}");
+            
             Stopwatch stopwatch = Stopwatch.StartNew();
             ExitCode exitCode = await Start();
             stopwatch.Stop();
+            AudioManager.Dispose();
+
             Logger.Info($"Exit code: {exitCode}, Exit time: {DateTime.UtcNow}, Total run time: {stopwatch.Elapsed}");
             await Logger.Save();
+            
             return exitCode;
         }
         private static async Task<ExitCode> Start()

@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Text.Json.Serialization;
 
-namespace AsciiForge.Resources
+namespace AsciiForge.Engine.Resources
 {
     public class TextureResource : Resource
     {

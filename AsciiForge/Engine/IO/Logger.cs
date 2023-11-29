@@ -1,7 +1,8 @@
-﻿using System.Text.Json;
+﻿using AsciiForge.Helpers;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace AsciiForge.Engine
+namespace AsciiForge.Engine.IO
 {
     public static class Logger
     {
@@ -23,7 +24,8 @@ namespace AsciiForge.Engine
                     string fileName = DateTime.UtcNow.ToString("yyyy-MM-ddTHH-mm-ss") + ".json";
                     string path = Path.Combine(directory, fileName);
                     using FileStream fileStream = File.Open(path, FileMode.OpenOrCreate, FileAccess.Write);
-                    JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
+                    JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true, };
+                    options.Converters.Add(new JsonExceptionConverter());
                     await JsonSerializer.SerializeAsync(fileStream, _logs, typeof(List<Log>), options);
                 }
             }

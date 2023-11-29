@@ -1,9 +1,9 @@
 ﻿using AsciiForge.Components;
-using AsciiForge.Resources;
-using System.ComponentModel;
+using AsciiForge.Engine.IO;
+using AsciiForge.Engine.Resources;
 using System.Reflection;
 
-namespace AsciiForge.Engine
+namespace AsciiForge.Engine.Ecs
 {
     public class Entity
     {

@@ -1,4 +1,4 @@
-﻿namespace AsciiForge.Resources
+﻿namespace AsciiForge.Engine.Resources
 {
     public abstract class Resource
     {

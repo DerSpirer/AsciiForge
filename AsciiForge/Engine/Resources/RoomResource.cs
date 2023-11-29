@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace AsciiForge.Resources
+namespace AsciiForge.Engine.Resources
 {
     public class RoomResource : Resource
     {

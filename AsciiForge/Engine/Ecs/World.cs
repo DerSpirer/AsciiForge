@@ -1,7 +1,8 @@
 ﻿using AsciiForge.Components;
-using AsciiForge.Resources;
+using AsciiForge.Engine.IO;
+using AsciiForge.Engine.Resources;
 
-namespace AsciiForge.Engine
+namespace AsciiForge.Engine.Ecs
 {
     public class World
     {
@@ -75,15 +76,14 @@ namespace AsciiForge.Engine
 
             await UnloadRoom();
             currRoom = index;
+            // Add default main camera
+            if (!rooms[currRoom].instances.Any(i => i.components.Any(c => c.type == typeof(Camera))))
+            {
+                await Instantiate("entMainCamera");
+            }
             foreach (InstanceResource instanceResource in rooms[currRoom].instances)
             {
                 await Instantiate(instanceResource);
-            }
-
-            // Add default main camera
-            if (FindComponent<Camera>() == null)
-            {
-                await Instantiate("entMainCamera");
             }
         }
         private async Task UnloadRoom()

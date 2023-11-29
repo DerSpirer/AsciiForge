@@ -1,4 +1,4 @@
-﻿using AsciiForge.Resources;
+﻿using AsciiForge.Engine.Resources;
 using System.Drawing;
 
 namespace AsciiForge.Components.Sprites

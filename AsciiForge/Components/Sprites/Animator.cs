@@ -1,5 +1,6 @@
-﻿using AsciiForge.Engine;
-using AsciiForge.Resources;
+﻿using AsciiForge.Engine.Ecs;
+using AsciiForge.Engine.IO;
+using AsciiForge.Engine.Resources;
 
 namespace AsciiForge.Components.Sprites
 {

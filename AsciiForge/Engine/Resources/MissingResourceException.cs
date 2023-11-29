@@ -1,4 +1,4 @@
-﻿namespace AsciiForge.Resources
+﻿namespace AsciiForge.Engine.Resources
 {
     internal class MissingResourceException : Exception
     {

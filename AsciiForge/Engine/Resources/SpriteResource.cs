@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace AsciiForge.Resources
+namespace AsciiForge.Engine.Resources
 {
     public class SpriteResource : Resource
     {
@@ -32,10 +32,10 @@ namespace AsciiForge.Resources
         [JsonConstructor]
         public SpriteResource(bool isPlaying, float clipLength, int startFrame, TextureResource[] textures)
         {
-            this._isPlaying = isPlaying;
-            this._clipLength = clipLength;
-            this._startFrame = startFrame;
-            this._textures = textures;
+            _isPlaying = isPlaying;
+            _clipLength = clipLength;
+            _startFrame = startFrame;
+            _textures = textures;
 
             (bool isValid, string error) = IsValid();
             if (!isValid)

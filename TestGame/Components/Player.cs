@@ -2,6 +2,8 @@
 using AsciiForge.Components.Colliders;
 using AsciiForge.Components.Sprites;
 using AsciiForge.Engine;
+using AsciiForge.Engine.Ecs;
+using AsciiForge.Engine.IO;
 
 namespace ConsoleGame.Components
 {
@@ -23,8 +25,9 @@ namespace ConsoleGame.Components
             _animator = entity.FindComponent<Animator>()!;
             _sprite = entity.FindComponent<Sprite>()!;
 
-            Game.world.camera.mode = Camera.Mode.FollowImmediate;
-            Game.world.camera.target = transform;
+            Game.world.camera.transform.position = new Vector3(Screen.width / 2, Screen.height / 2, -10);
+            //Game.world.camera.mode = Camera.Mode.FollowImmediate;
+            //Game.world.camera.target = transform;
         }
         
         private void Update(float deltaTime)

@@ -1,7 +1,9 @@
 ﻿using AsciiForge.Engine;
-using AsciiForge.Resources;
+using AsciiForge.Engine.Ecs;
+using AsciiForge.Engine.IO;
+using AsciiForge.Engine.Resources;
 using System.Text.Json.Serialization;
-using static AsciiForge.Engine.Canvas;
+using static AsciiForge.Engine.Ecs.Canvas;
 
 namespace AsciiForge.Components.Sprites
 {

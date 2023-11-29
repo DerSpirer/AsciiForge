@@ -1,10 +1,10 @@
-﻿using AsciiForge.Engine;
+﻿using AsciiForge.Engine.IO;
 using AsciiForge.Helpers;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace AsciiForge.Resources
+namespace AsciiForge.Engine.Resources
 {
     public class ComponentResource : Resource
     {
@@ -16,8 +16,8 @@ namespace AsciiForge.Resources
         [JsonConstructor]
         public ComponentResource(Type type, (string, object?)[] properties)
         {
-            this._type = type;
-            this._properties = properties;
+            _type = type;
+            _properties = properties;
 
             (bool isValid, string error) = IsValid();
             if (!isValid)

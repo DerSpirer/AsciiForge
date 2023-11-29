@@ -1,19 +1,19 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace AsciiForge.Resources
+namespace AsciiForge.Engine.Resources
 {
-    public class EntityResource : Resource
+    public class InstanceResource : Resource
     {
-        [JsonIgnore]
-        public string species { get; internal set; }
+        private readonly string _species;
+        public string species { get { return _species; } }
         private readonly ComponentResource[] _components;
         public ComponentResource[] components { get { return _components; } }
 
         [JsonConstructor]
-        public EntityResource(ComponentResource[] components)
+        public InstanceResource(string species, ComponentResource[] components)
         {
-            this.species = string.Empty;
-            this._components = components;
+            _species = species;
+            _components = components;
 
             (bool isValid, string error) = IsValid();
             if (!isValid)
@@ -26,6 +26,12 @@ namespace AsciiForge.Resources
         {
             bool isValid = false;
             string error = string.Empty;
+
+            if (!ResourceManager.entities.ContainsKey(_species))
+            {
+                error = $"Referencing non-existing species '{_species}' in room resource";
+                return (isValid, error);
+            }
 
             isValid = true;
             return (isValid, error);

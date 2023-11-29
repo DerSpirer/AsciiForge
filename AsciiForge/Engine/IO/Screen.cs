@@ -1,8 +1,9 @@
 ﻿using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
+using AsciiForge.Engine.Ecs;
 
-namespace AsciiForge.Engine
+namespace AsciiForge.Engine.IO
 {
     public static class Screen
     {

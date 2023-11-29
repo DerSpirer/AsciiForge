@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace AsciiForge.Engine
+namespace AsciiForge.Engine.IO
 {
     public static class Input
     {

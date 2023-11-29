@@ -1,4 +1,6 @@
 ﻿using AsciiForge.Engine;
+using AsciiForge.Engine.Ecs;
+using AsciiForge.Engine.IO;
 using System.Text.Json.Serialization;
 
 namespace AsciiForge.Components.Colliders

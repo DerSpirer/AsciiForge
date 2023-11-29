@@ -1,4 +1,5 @@
-﻿using AsciiForge.Engine;
+﻿using AsciiForge.Engine.Ecs;
+using AsciiForge.Engine.IO;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;

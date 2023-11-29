@@ -1,7 +1,7 @@
 ﻿using AsciiForge.Components;
 using System.Text.Json.Serialization;
 
-namespace AsciiForge.Engine
+namespace AsciiForge.Engine.Ecs
 {
     public abstract class Component
     {

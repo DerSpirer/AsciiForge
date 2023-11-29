@@ -1,7 +1,8 @@
-﻿using AsciiForge.Resources;
+﻿using AsciiForge.Engine.IO;
+using AsciiForge.Engine.Resources;
 using System.Drawing;
 
-namespace AsciiForge.Engine
+namespace AsciiForge.Engine.Ecs
 {
     public class Canvas
     {

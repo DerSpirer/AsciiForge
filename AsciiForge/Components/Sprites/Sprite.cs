@@ -1,5 +1,5 @@
-﻿using AsciiForge.Engine;
-using AsciiForge.Resources;
+﻿using AsciiForge.Engine.IO;
+using AsciiForge.Engine.Resources;
 using System.Text.Json.Serialization;
 
 namespace AsciiForge.Components.Sprites
