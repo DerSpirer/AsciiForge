@@ -1,4 +1,7 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Drawing;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using AsciiForge.Helpers.JsonConverters;
 
 namespace AsciiForge.Engine.Resources
 {
@@ -30,7 +33,7 @@ namespace AsciiForge.Engine.Resources
         }
 
         [JsonConstructor]
-        public SpriteResource(bool isPlaying, float clipLength, int startFrame, TextureResource[] textures)
+        private SpriteResource(bool isPlaying, float clipLength, int startFrame, TextureResource[] textures)
         {
             _isPlaying = isPlaying;
             _clipLength = clipLength;
@@ -80,6 +83,21 @@ namespace AsciiForge.Engine.Resources
 
             isValid = true;
             return (isValid, error);
+        }
+
+        public static async Task<SpriteResource> Read(ResourceManager.ResourceFile resourceFile)
+        {
+            await using FileStream fileStream = File.Open(resourceFile.path, FileMode.Open, FileAccess.Read);
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                AllowTrailingCommas = true,
+                ReadCommentHandling = JsonCommentHandling.Skip,
+            };
+            options.Converters.Add(new JsonColorConverter());
+            options.Converters.Add(new JsonRectangularArrayConverter<char>());
+            options.Converters.Add(new JsonRectangularArrayConverter<Color>());
+            SpriteResource resource = await JsonSerializer.DeserializeAsync<SpriteResource>(fileStream, options) ?? throw new ResourceFormatException($"Failed to deserialize sprite resource at: {resourceFile.path}");
+            return resource;
         }
     }
 }

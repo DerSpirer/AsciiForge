@@ -28,9 +28,9 @@ namespace AsciiForge.Engine.Resources
             return (isValid, error);
         }
         
-        internal static async Task<SoundResource> ReadFile(string audioFile)
+        public static async Task<SoundResource> Read(ResourceManager.ResourceFile resourceFile)
         {
-            await using AudioFileReader reader = new AudioFileReader(audioFile);
+            await using AudioFileReader reader = new AudioFileReader(resourceFile.path);
             
             List<float> data = new List<float>();
             float[] readBuffer = new float[reader.WaveFormat.SampleRate * reader.WaveFormat.Channels];

@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using AsciiForge.Helpers.JsonConverters;
 
 namespace AsciiForge.Engine.Resources
 {
@@ -10,7 +12,7 @@ namespace AsciiForge.Engine.Resources
         public ComponentResource[] components { get { return _components; } }
 
         [JsonConstructor]
-        public EntityResource(ComponentResource[] components)
+        private EntityResource(ComponentResource[] components)
         {
             species = string.Empty;
             _components = components;
@@ -29,6 +31,21 @@ namespace AsciiForge.Engine.Resources
 
             isValid = true;
             return (isValid, error);
+        }
+        
+        public static async Task<EntityResource> Read(ResourceManager.ResourceFile resourceFile)
+        {
+            await using FileStream fileStream = File.Open(resourceFile.path, FileMode.Open, FileAccess.Read);
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                AllowTrailingCommas = true,
+                ReadCommentHandling = JsonCommentHandling.Skip,
+            };
+            options.Converters.Add(new JsonComponentTypeConverter());
+            options.Converters.Add(new JsonComponentPropertyConverter());
+            EntityResource resource = await JsonSerializer.DeserializeAsync<EntityResource>(fileStream, options) ?? throw new ResourceFormatException($"Failed to deserialize entity resource at: {resourceFile.path}");
+            resource.species = resourceFile.name;
+            return resource;
         }
     }
 }
