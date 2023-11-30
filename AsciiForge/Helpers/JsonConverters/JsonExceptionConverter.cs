@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace AsciiForge.Helpers
+namespace AsciiForge.Helpers.JsonConverters
 {
     internal class JsonExceptionConverter : JsonConverter<Exception>
     {

@@ -1,10 +1,10 @@
-﻿using AsciiForge.Engine.Ecs;
-using AsciiForge.Engine.IO;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using AsciiForge.Engine.Ecs;
+using AsciiForge.Engine.IO;
 
-namespace AsciiForge.Helpers
+namespace AsciiForge.Helpers.JsonConverters
 {
     internal class JsonComponentTypeConverter : JsonConverter<Type>
     {

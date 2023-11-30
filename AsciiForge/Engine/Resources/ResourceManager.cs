@@ -1,8 +1,7 @@
 ﻿using AsciiForge.Engine.IO;
-using AsciiForge.Helpers;
-using NAudio.Wave;
 using System.Drawing;
 using System.Text.Json;
+using AsciiForge.Helpers.JsonConverters;
 
 namespace AsciiForge.Engine.Resources
 {
@@ -59,7 +58,9 @@ namespace AsciiForge.Engine.Resources
             await LoadResources(Directory.EnumerateFiles(directory, "*.sound.*", SearchOption.AllDirectories).Where(f => ResourceFile._typesSuffixes.Any(s => f.EndsWith(s.Item2))).Select(f => new ResourceFile(f)).ToArray());
             await LoadResources(Directory.EnumerateFiles(directory, "*.entity.json", SearchOption.AllDirectories).Select(f => new ResourceFile(f)).ToArray());
             await LoadResources(Directory.EnumerateFiles(directory, "*.room.json", SearchOption.AllDirectories).Select(f => new ResourceFile(f)).ToArray());
-            await LoadRoomOrder(directory);
+
+            await GlobalDefinitions.Load();
+            rooms.AddRange(GlobalDefinitions.OrderRooms(_rooms));
         }
         private static async Task LoadResources(ResourceFile[] resources)
         {
@@ -132,49 +133,6 @@ namespace AsciiForge.Engine.Resources
                     Logger.Error($"Failed to load resource file: {r.path}", exception);
                     continue;
                 }
-            }
-        }
-        private static async Task LoadRoomOrder(string directory)
-        {
-            try
-            {
-                const string fileName = "roomsList.json";
-                string path = Path.Combine(directory, fileName);
-                using FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read);
-                string[]? order = await JsonSerializer.DeserializeAsync<string[]>(fileStream);
-                if (order == null)
-                {
-                    Logger.Critical("Failed to read parse roomsOrder.json");
-                    return;
-                }
-                if (order.Length == 0)
-                {
-                    Logger.Critical("roomOrder.json contains empty array");
-                }
-
-                foreach (string room in order)
-                {
-                    if (_rooms.ContainsKey(room))
-                    {
-                        rooms.Add(_rooms[room]);
-                    }
-                    else
-                    {
-                        Logger.Warning($@"'{room}' in roomsOrder.json references a non-existing room resource");
-                    }
-                }
-            }
-            catch (FileNotFoundException exception)
-            {
-                Logger.Critical("File roomsOrder.json not found", exception);
-            }
-            catch (JsonException exception)
-            {
-                Logger.Critical("Failed to parse roomsOrder.json", exception);
-            }
-            catch (Exception exception)
-            {
-                Logger.Critical("Failed to load roomsOrder.json", exception);
             }
         }
     }

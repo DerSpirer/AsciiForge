@@ -18,9 +18,6 @@
     <None Update="Assets\Entities\entSolid.entity.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\roomsList.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Assets\Rooms\rmMain.room.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -34,6 +31,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Sprites\sprPlayerWalk.sprite.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="globalDefinitions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
