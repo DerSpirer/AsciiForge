@@ -7,9 +7,30 @@ namespace AsciiForge.Engine.Resources
         public float[] audioData { get; private set; }
         public WaveFormat waveFormat { get; private set; }
 
-        public SoundResource(string audioFile)
+        private SoundResource(float[] audioData, WaveFormat waveFormat)
         {
-            using AudioFileReader reader = new AudioFileReader(audioFile);
+            this.audioData = audioData;
+            this.waveFormat = waveFormat;
+
+            (bool isValid, string error) = IsValid();
+            if (!isValid)
+            {
+                throw new ResourceFormatException(error);
+            }
+        }
+        
+        protected override (bool, string) IsValid()
+        {
+            bool isValid = false;
+            string error = string.Empty;
+
+            isValid = true;
+            return (isValid, error);
+        }
+        
+        internal static async Task<SoundResource> ReadFile(string audioFile)
+        {
+            await using AudioFileReader reader = new AudioFileReader(audioFile);
             
             List<float> data = new List<float>();
             float[] readBuffer = new float[reader.WaveFormat.SampleRate * reader.WaveFormat.Channels];
@@ -19,23 +40,10 @@ namespace AsciiForge.Engine.Resources
                 data.AddRange(readBuffer.Take(samplesRead));
                 samplesRead = reader.Read(readBuffer, 0, readBuffer.Length);
             }
-            audioData = data.ToArray();
-            waveFormat = reader.WaveFormat;
-
-            (bool isValid, string error) = IsValid();
-            if (!isValid)
-            {
-                throw new ResourceFormatException(error);
-            }
-        }
-
-        protected override (bool, string) IsValid()
-        {
-            bool isValid = false;
-            string error = string.Empty;
-
-            isValid = true;
-            return (isValid, error);
+            
+            float[] audioData = data.ToArray();
+            WaveFormat waveFormat = reader.WaveFormat;
+            return new SoundResource(audioData, waveFormat);
         }
     }
 }

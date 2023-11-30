@@ -91,7 +91,7 @@ namespace AsciiForge.Engine.Resources
                             {
                                 continue;
                             }
-                            sounds.Add(r.name, new SoundResource(r.path));
+                            sounds.Add(r.name, await SoundResource.ReadFile(r.path));
                             break;
                         case ResourceFile.ResourceType.Entity:
                             if (entities.ContainsKey(r.name))
