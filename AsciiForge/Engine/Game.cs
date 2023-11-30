@@ -55,7 +55,7 @@ namespace AsciiForge.Engine
             }
         }
         private static AsyncTimer _updateTimer;
-        private static AsyncTimer _drawTimer;;
+        private static AsyncTimer _drawTimer;
 
         private static bool _started = false;
         private static bool _exit = false;
