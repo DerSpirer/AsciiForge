@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using AsciiForge.Engine.Audio;
-using AsciiForge.Engine.Ecs;
 using AsciiForge.Engine.IO;
 using AsciiForge.Engine.Resources;
 using AsciiForge.Helpers;
@@ -60,6 +59,7 @@ namespace AsciiForge.Engine
         private static bool _started = false;
         private static bool _exit = false;
 
+        internal static ExitCode exitCode { get; private set; }
         public enum ExitCode
         {
             Success,
@@ -67,27 +67,25 @@ namespace AsciiForge.Engine
             NoRooms,
             Crashed,
         }
-        public static async Task<ExitCode> Commence()
+        public static async Task Commence()
         {
             Logger.Info($"Start time: {DateTime.UtcNow}");
             
             Stopwatch stopwatch = Stopwatch.StartNew();
-            ExitCode exitCode = await Start();
+            await Start();
             stopwatch.Stop();
             AudioManager.Dispose();
 
             Logger.Info($"Exit code: {exitCode}, Exit time: {DateTime.UtcNow}, Total run time: {stopwatch.Elapsed}");
             await Logger.Save();
-            
-            return exitCode;
         }
-        private static async Task<ExitCode> Start()
+        private static async Task Start()
         {
             try
             {
                 if (_started)
                 {
-                    return ExitCode.AlreadyStarted;
+                    exitCode = ExitCode.AlreadyStarted;
                 }
                 _started = true;
 
@@ -95,7 +93,7 @@ namespace AsciiForge.Engine
                 if (ResourceManager.rooms.Count <= 0)
                 {
                     Logger.Critical("Cannot start game with 0 rooms");
-                    return ExitCode.NoRooms;
+                    exitCode = ExitCode.NoRooms;
                 }
 
                 world = new World(ResourceManager.rooms);
@@ -119,25 +117,41 @@ namespace AsciiForge.Engine
 
                 await world.Destroy();
 
-                return ExitCode.Success;
+                exitCode = ExitCode.Success;
             }
             catch (Exception exception)
             {
-                Logger.Critical($"Game crashed", exception);
-                return ExitCode.Crashed;
+                Logger.Critical($"Game crashed in start method", exception);
+                exitCode = ExitCode.Crashed;
             }
         }
 
         private static async Task Update(object? state)
         {
-            Input.Read();
-            await world.Update();
+            try
+            {
+                Input.Read();
+                await world.Update();
+            }
+            catch (Exception exception)
+            {
+                Logger.Critical($"Game crashed in update method", exception);
+                exitCode = ExitCode.Crashed;
+            }
         }
         private static async Task Draw(object? state)
         {
-            Screen.Clear();
-            await world.Draw(Screen.canvas);
-            Screen.Draw();
+            try
+            {
+                Screen.Clear();
+                await world.Draw(Screen.canvas);
+                Screen.Draw();
+            }
+            catch (Exception exception)
+            {
+                Logger.Critical($"Game crashed in draw method", exception);
+                exitCode = ExitCode.Crashed;
+            }
         }
 
         public static void Exit()

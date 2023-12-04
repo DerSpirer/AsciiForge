@@ -10,7 +10,7 @@
       ]
     },
     {
-      "type": "ConsoleGame.Components.Player",
+      "type": "TestGame.Components.Player",
       "properties": [
         [ "isEnabled", true ]
       ]
@@ -24,7 +24,7 @@
       ]
     },
     {
-      "type": "AsciiForge.Components.Sprites.Sprite",
+      "type": "AsciiForge.Components.Drawables.Sprite",
       "properties": [
         [ "isEnabled", true ],
         [ "sprite", "sprPlayerIdle" ],
@@ -32,7 +32,7 @@
       ]
     },
     {
-      "type": "AsciiForge.Components.Sprites.Animator",
+      "type": "AsciiForge.Components.Drawables.Animator",
       "properties": [
         [ "isEnabled", true ],
         [

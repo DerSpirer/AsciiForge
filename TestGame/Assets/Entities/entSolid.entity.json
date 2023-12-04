@@ -18,7 +18,7 @@
       ]
     },
     {
-      "type": "AsciiForge.Components.Sprites.Box",
+      "type": "AsciiForge.Components.Drawables.Primitives.Box",
       "properties": [
         [ "isEnabled", true ],
         [ "boxWidth", 2 ],

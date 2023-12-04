@@ -1,8 +1,8 @@
-﻿using AsciiForge.Engine.IO;
+﻿using System.Text.Json.Serialization;
+using AsciiForge.Engine.IO;
 using AsciiForge.Engine.Resources;
-using System.Text.Json.Serialization;
 
-namespace AsciiForge.Components.Sprites
+namespace AsciiForge.Components.Drawables
 {
     public class Sprite : Drawable
     {

@@ -1,7 +1,6 @@
 ﻿using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
-using AsciiForge.Engine.Ecs;
 
 namespace AsciiForge.Engine.IO
 {

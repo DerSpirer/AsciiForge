@@ -1,5 +1,4 @@
 ﻿using AsciiForge.Engine;
-using AsciiForge.Engine.Ecs;
 
 namespace AsciiForge.Components.Colliders
 {

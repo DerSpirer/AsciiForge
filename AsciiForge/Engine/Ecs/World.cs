@@ -2,7 +2,7 @@
 using AsciiForge.Engine.IO;
 using AsciiForge.Engine.Resources;
 
-namespace AsciiForge.Engine.Ecs
+namespace AsciiForge.Engine
 {
     public class World
     {
@@ -48,7 +48,10 @@ namespace AsciiForge.Engine.Ecs
                 _lastUpdateTime = currTime;
             }
             float deltaTime = (currTime - ((long)_lastUpdateTime)) / 1000.0f;
-            foreach (Entity entity in _entities)
+            // We need to clone the entities list for the update calls,
+            // because if we instantiate an entity during one, it will modify the entities list.
+            List<Entity> currEntities = new List<Entity>(_entities);
+            foreach (Entity entity in currEntities)
             {
                 await entity.Update(deltaTime);
             }
@@ -57,7 +60,8 @@ namespace AsciiForge.Engine.Ecs
         }
         public async Task Draw(Canvas canvas)
         {
-            foreach (Entity entity in _entities)
+            List<Entity> currEntities = new List<Entity>(_entities);
+            foreach (Entity entity in currEntities)
             {
                 await entity.Draw(canvas);
             }

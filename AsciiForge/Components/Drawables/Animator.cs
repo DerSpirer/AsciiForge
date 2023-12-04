@@ -1,8 +1,8 @@
-﻿using AsciiForge.Engine.Ecs;
+﻿using AsciiForge.Engine;
 using AsciiForge.Engine.IO;
 using AsciiForge.Engine.Resources;
 
-namespace AsciiForge.Components.Sprites
+namespace AsciiForge.Components.Drawables
 {
     public class Animator : Component
     {

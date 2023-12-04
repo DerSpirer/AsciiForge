@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using AsciiForge.Engine.Ecs;
+using AsciiForge.Engine;
 using AsciiForge.Engine.IO;
 
 namespace AsciiForge.Helpers.JsonConverters

@@ -1,6 +1,5 @@
 ﻿using AsciiForge.Engine;
 using AsciiForge.Helpers;
-using AsciiForge.Engine.Ecs;
 using AsciiForge.Engine.Audio;
 using AsciiForge.Engine.Resources;
 

@@ -10,21 +10,23 @@
       ]
     },
     {
-      "type": "AsciiForge.Components.Drawables.Sprite",
+      "type": "AsciiForge.Components.Drawables.Primitives.Box",
       "properties": [
         [ "isEnabled", true ],
-        [ "sprite", null ],
-        [ "isVisible", false ]
+        [ "fill", "Black" ]
       ]
     },
     {
-      "type": "AsciiForge.Components.Camera",
+      "type": "AsciiForge.Components.Drawables.Primitives.TextBox",
+      "properties": [
+        [ "isEnabled", true ]
+      ]
+    },
+    {
+      "type": "AsciiForge.Components.Drawables.Gui.Dialogue.DialogueBox",
       "properties": [
         [ "isEnabled", true ],
-        [ "bgColor", "Black" ],
-        [ "bgOffset", { "x":  0, "y":  0 } ],
-        [ "bgMode", "Multiply" ],
-        [ "mode", "Static" ]
+        [ "text", "Hello world" ]
       ]
     }
   ]

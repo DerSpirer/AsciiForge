@@ -5,12 +5,9 @@ namespace AsciiForge.Engine.Resources
 {
     public class TextureResource : Resource
     {
-        private readonly char[,] _text;
-        public char[,] text { get { return _text; } }
-        private readonly Color[,] _fg;
-        public Color[,] fg { get { return _fg; } }
-        private readonly Color[,] _bg;
-        public Color[,] bg { get { return _bg; } }
+        public char[,] text { get; private set; }
+        public Color[,] fg { get; private set; }
+        public Color[,] bg { get; private set; }
         [JsonIgnore]
         public int width { get { return text.GetLength(1); } }
         [JsonIgnore]
@@ -25,16 +22,16 @@ namespace AsciiForge.Engine.Resources
                 {
                     for (int j = 0; j < flipped.width / 2; j++)
                     {
-                        (flipped._text[i, j], flipped._text[i, flipped.height - 1 - j]) = (flipped._text[i, flipped.height - 1 - j], flipped._text[i, j]);
-                        (flipped._fg[i, j], flipped._fg[i, flipped.height - 1 - j]) = (flipped._fg[i, flipped.height - 1 - j], flipped._fg[i, j]);
-                        (flipped._bg[i, j], flipped._bg[i, flipped.height - 1 - j]) = (flipped._bg[i, flipped.height - 1 - j], flipped._bg[i, j]);
+                        (flipped.text[i, j], flipped.text[i, flipped.height - 1 - j]) = (flipped.text[i, flipped.height - 1 - j], flipped.text[i, j]);
+                        (flipped.fg[i, j], flipped.fg[i, flipped.height - 1 - j]) = (flipped.fg[i, flipped.height - 1 - j], flipped.fg[i, j]);
+                        (flipped.bg[i, j], flipped.bg[i, flipped.height - 1 - j]) = (flipped.bg[i, flipped.height - 1 - j], flipped.bg[i, j]);
                     }
                     for (int j = 0; j < flipped.width; j++)
                     {
-                        (char, char) pair = flipHorizontalChars.Find(c => flipped._text[i, j] == c.Item1 || flipped._text[i, j] == c.Item2);
+                        (char, char) pair = flipHorizontalChars.Find(c => flipped.text[i, j] == c.Item1 || flipped.text[i, j] == c.Item2);
                         if (pair.Item1 != 0 && pair.Item2 != 0)
                         {
-                            flipped._text[i, j] = flipped._text[i, j] == pair.Item1 ? pair.Item2 : pair.Item1;
+                            flipped.text[i, j] = flipped.text[i, j] == pair.Item1 ? pair.Item2 : pair.Item1;
                         }
                     }
                 }
@@ -51,16 +48,16 @@ namespace AsciiForge.Engine.Resources
                 {
                     for (int j = 0; j < flipped.height / 2; j++)
                     {
-                        (flipped._text[j, i], flipped._text[j, flipped.width - 1 - i]) = (flipped._text[j, flipped.width - 1 - i], flipped._text[j, i]);
-                        (flipped._fg[j, i], flipped._fg[j, flipped.width - 1 - i]) = (flipped._fg[j, flipped.width - 1 - i], flipped._fg[j, i]);
-                        (flipped._bg[j, i], flipped._bg[j, flipped.width - 1 - i]) = (flipped._bg[j, flipped.width - 1 - i], flipped._bg[j, i]);
+                        (flipped.text[j, i], flipped.text[j, flipped.width - 1 - i]) = (flipped.text[j, flipped.width - 1 - i], flipped.text[j, i]);
+                        (flipped.fg[j, i], flipped.fg[j, flipped.width - 1 - i]) = (flipped.fg[j, flipped.width - 1 - i], flipped.fg[j, i]);
+                        (flipped.bg[j, i], flipped.bg[j, flipped.width - 1 - i]) = (flipped.bg[j, flipped.width - 1 - i], flipped.bg[j, i]);
                     }
                     for (int j = 0; j < flipped.height; j++)
                     {
-                        (char, char) pair = flipVerticalChars.Find(c => flipped._text[j, i] == c.Item1 || flipped._text[j, i] == c.Item2);
+                        (char, char) pair = flipVerticalChars.Find(c => flipped.text[j, i] == c.Item1 || flipped.text[j, i] == c.Item2);
                         if (pair.Item1 != 0 && pair.Item2 != 0)
                         {
-                            flipped._text[j, i] = flipped._text[j, i] == pair.Item1 ? pair.Item2 : pair.Item1;
+                            flipped.text[j, i] = flipped.text[j, i] == pair.Item1 ? pair.Item2 : pair.Item1;
                         }
                     }
                 }
@@ -71,9 +68,9 @@ namespace AsciiForge.Engine.Resources
         [JsonConstructor]
         public TextureResource(char[,] text, Color[,] fg, Color[,] bg)
         {
-            _text = text;
-            _fg = fg;
-            _bg = bg;
+            this.text = text;
+            this.fg = fg;
+            this.bg = bg;
 
             (bool isValid, string error) = IsValid();
             if (!isValid)
@@ -82,10 +79,25 @@ namespace AsciiForge.Engine.Resources
             }
         }
         public TextureResource(TextureResource texture)
-            : this((char[,])texture._text.Clone(),
-                  (Color[,])texture._fg.Clone(),
-                  (Color[,])texture._bg.Clone())
+            : this((char[,])texture.text.Clone(),
+                  (Color[,])texture.fg.Clone(),
+                  (Color[,])texture.bg.Clone())
         {
+        }
+        public TextureResource(int width, int height, Color fgColor, Color bgColor)
+        {
+            text = new char[height, width];
+            fg = new Color[height, width];
+            bg = new Color[height, width];
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    text[i,j] = ' ';
+                    fg[i,j] = fgColor;
+                    bg[i,j] = bgColor;
+                }
+            }
         }
 
         protected override (bool, string) IsValid()
@@ -100,12 +112,12 @@ namespace AsciiForge.Engine.Resources
                 error = "Texture with invalid width or height";
                 return (isValid, error);
             }
-            if ((_fg?.GetLength(1) ?? 0) != width || _fg!.GetLength(0) != height)
+            if ((fg?.GetLength(1) ?? 0) != width || fg!.GetLength(0) != height)
             {
                 error = "Texture with foreground colors of different width or height";
                 return (isValid, error);
             }
-            if ((_bg?.GetLength(1) ?? 0) != width || _bg!.GetLength(0) != height)
+            if ((bg?.GetLength(1) ?? 0) != width || bg!.GetLength(0) != height)
             {
                 error = "Texture with background colors of different width or height";
                 return (isValid, error);

@@ -1,7 +1,7 @@
-﻿using AsciiForge.Engine.Resources;
-using System.Drawing;
+﻿using System.Drawing;
+using AsciiForge.Engine.Resources;
 
-namespace AsciiForge.Components.Sprites
+namespace AsciiForge.Components.Drawables.Primitives
 {
     public class Dot : Drawable
     {

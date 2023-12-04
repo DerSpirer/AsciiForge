@@ -1,11 +1,9 @@
-﻿using AsciiForge.Components;
-using AsciiForge.Components.Colliders;
-using AsciiForge.Components.Sprites;
+﻿using AsciiForge.Components.Colliders;
+using AsciiForge.Components.Drawables;
 using AsciiForge.Engine;
-using AsciiForge.Engine.Ecs;
 using AsciiForge.Engine.IO;
 
-namespace ConsoleGame.Components
+namespace TestGame.Components
 {
     public class Player : Component
     {
@@ -30,7 +28,7 @@ namespace ConsoleGame.Components
             //Game.world.camera.target = transform;
         }
         
-        private void Update(float deltaTime)
+        private async Task Update(float deltaTime)
         {
             int xAxis = (Input.IsKeyDown(Input.Key.RightArrow) ? 1 : 0) - (Input.IsKeyDown(Input.Key.LeftArrow) ? 1 : 0);
             if (xAxis != 0)
@@ -80,6 +78,11 @@ namespace ConsoleGame.Components
             if (Input.IsKeyReleased(Input.Key.Escape))
             {
                 Game.Exit();
+            }
+
+            if (Input.IsKeyReleased(Input.Key.NumpadAdd))
+            {
+                await Game.world.Instantiate("entDialogueBox");
             }
         }
     }

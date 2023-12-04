@@ -3,7 +3,7 @@ using AsciiForge.Engine.IO;
 using AsciiForge.Engine.Resources;
 using System.Reflection;
 
-namespace AsciiForge.Engine.Ecs
+namespace AsciiForge.Engine
 {
     public class Entity
     {

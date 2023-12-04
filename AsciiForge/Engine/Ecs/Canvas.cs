@@ -2,7 +2,7 @@
 using AsciiForge.Engine.Resources;
 using System.Drawing;
 
-namespace AsciiForge.Engine.Ecs
+namespace AsciiForge.Engine
 {
     public class Canvas
     {
@@ -91,8 +91,8 @@ namespace AsciiForge.Engine.Ecs
         public void Draw(char chr, Color fg, Color bg, Vector3 pos, BlendMode blendMode = BlendMode.Alpha)
         {
             pos = pos - Game.world.camera.transform.position + new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
-            int x = (int)Math.Round(pos.x);
-            int y = (int)Math.Round(pos.y);
+            int x = (int)Math.Floor(pos.x);
+            int y = (int)Math.Floor(pos.y);
             if (x < 0 || x >= _width || y < 0 || y >= _height || pos.z <= 0)
             {
                 return;
