@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using AsciiEditor.Windows;
+using AsciiEditor.Windows.FileBrowser;
 
 namespace AsciiEditor;
 
