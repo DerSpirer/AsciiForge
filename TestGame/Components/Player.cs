@@ -82,7 +82,11 @@ namespace TestGame.Components
 
             if (Input.IsKeyReleased(Input.Key.NumpadAdd))
             {
-                await Game.world.Instantiate("entDialogueBox");
+                await Game.world.Instantiate("entDialogueMessage", transform.position + new Vector3(0, -5, 0));
+            }
+            if (Input.IsKeyReleased(Input.Key.NumpadSubtract))
+            {
+                await Game.world.Instantiate("entDialogueChoice", transform.position + new Vector3(0, -5, 0));
             }
         }
     }

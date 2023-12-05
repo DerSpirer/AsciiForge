@@ -6,7 +6,7 @@ public class GuiElement : Component
 {
     public float zIndex { get; set; } = 0;
 
-    public Vector3 position
+    protected Vector3 position
     {
         get
         {

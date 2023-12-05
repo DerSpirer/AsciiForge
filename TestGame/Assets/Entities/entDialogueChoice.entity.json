@@ -10,20 +10,10 @@
       ]
     },
     {
-      "type": "AsciiForge.Components.Colliders.BoxCollider",
+      "type": "AsciiForge.Components.Drawables.Gui.Dialogue.DialogueChoice",
       "properties": [
         [ "isEnabled", true ],
-        [ "size", { "x": 2, "y": 2 } ],
-        [ "offset", { "x": 0, "y": 0 } ]
-      ]
-    },
-    {
-      "type": "AsciiForge.Components.Drawables.Shapes.Box",
-      "properties": [
-        [ "isEnabled", true ],
-        [ "boxWidth", 2 ],
-        [ "boxHeight", 2 ],
-        [ "anchor", "TopLeft" ]
+        [ "choices", [ "123", "456", "789" ] ]
       ]
     }
   ]

@@ -36,7 +36,10 @@
     <None Update="globalDefinitions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Entities\entDialogueBox.entity.json">
+    <None Update="Assets\Entities\entDialogueMessage.entity.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Entities\entDialogueChoice.entity.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

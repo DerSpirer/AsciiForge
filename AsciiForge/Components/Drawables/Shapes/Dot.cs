@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using AsciiForge.Engine.Resources;
 
-namespace AsciiForge.Components.Drawables.Primitives
+namespace AsciiForge.Components.Drawables.Shapes
 {
     public class Dot : Drawable
     {

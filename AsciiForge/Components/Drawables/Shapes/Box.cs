@@ -2,7 +2,7 @@
 using AsciiForge.Engine.IO;
 using AsciiForge.Engine.Resources;
 
-namespace AsciiForge.Components.Drawables.Primitives
+namespace AsciiForge.Components.Drawables.Shapes
 {
     public class Box : Drawable
     {
